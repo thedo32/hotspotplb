@@ -2,11 +2,18 @@ from datetime import datetime
 import geopandas as gpd
 import pandas as pd
 import pydeck as pdk
-import streamlit as st
 from streamlit_float import *
 import altair as alt
+import streamlit as st
+import pandas as pd
 
 
+st.set_page_config(
+    page_title = "Polusi Udara dan Hotspot Kebakaran Lahan Hutan",
+    page_icon="fishtail.png",
+    layout="wide",
+)
+float_init()
 
 
 url = "https://ditppu.menlhk.go.id/portal/read/indeks-standar-pencemar-udara-ispu-sebagai-informasi-mutu-udara-ambien-di-indonesia"
@@ -24,23 +31,6 @@ urlsctv = "https://www.liputan6.com/photo/read/5415505/diselimuti-kabut-asap-pal
 urlbnpb = "https://bnpb.go.id/berita/99-penyebab-kebakaran-hutan-dan-lahan-adalah-ulah-manusia"
 urlbubble = "https://github.com/thedo32/hotspotplb/blob/master/data/idn.geojson"
 
-st.set_page_config(
-    page_title = "Polusi Udara dan Hotspot Kebakaran Lahan Hutan",
-    page_icon="fishtail.png",
-    layout="wide",
-)
-float_init()
-
-def format_big_number(num):
-    if num >= 1e6:
-        return f"{num / 1e6:.3f} Mio"
-    elif num >= 1e3:
-        return f"{num / 1e3:.3f} K"
-    elif num >= 1e2:
-        return f"{num / 1e3:.3f} K"
-    else:
-        return f"{num:.3f}"
-
 
 firm_all = pd.read_csv('data/nasa_viirs_noaa_oct_2023.csv')
 firm_all_prev = pd.read_csv('data/nasa_viirs_noaa_oct_2022.csv')
@@ -51,6 +41,17 @@ firmhs = len(firm_all.index)
 sumselhs =len(firm.index)
 firmhs_prev = len(firm_all_prev.index)
 sumselhs_prev =len(firm_prev.index)
+
+
+def format_big_number(num):
+    if num >= 1e6:
+        return f"{num / 1e6:.3f} Mio"
+    elif num >= 1e3:
+        return f"{num / 1e3:.3f} K"
+    elif num >= 1e2:
+        return f"{num / 1e3:.3f} K"
+    else:
+        return f"{num:.3f}"
 
 
 # tahun sebelumnya dan sekarang
@@ -525,5 +526,8 @@ with main_cl:
                 ],
             ))
         with tab3b:
-           st.write("Sumber data peta: [Geojson](%s)" %urlbubble, unsafe_allow_html=True )
-           st.image("img/indonesia_bubble.png",use_column_width=True)
+            st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble,
+                         unsafe_allow_html=True)
+            st.image("img/indonesia_bubble.png",use_column_width=True)
+
+
