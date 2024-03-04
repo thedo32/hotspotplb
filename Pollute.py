@@ -1,11 +1,12 @@
 from datetime import datetime
 import geopandas as gpd
-import pandas as pd
 import pydeck as pdk
 from streamlit_float import *
 import altair as alt
 import streamlit as st
 import pandas as pd
+import plotly.express as px
+
 
 
 st.set_page_config(
@@ -167,7 +168,6 @@ with main_cl:
 
         #tab untuk peta 3 wilayah administrasi
         tab1, tab2, tab3a, tab3b = st.tabs(['Kota Palembang', 'Provinsi Sumatera Selatan', 'Indonesia', 'Indonesia Bubble'])
-
 
         with tab1:
 
@@ -496,6 +496,7 @@ with main_cl:
                 ],
             ))
 
+
         with tab3a:
             df3 = gpd.read_file('data/idn.geojson')
             df3['lon'] = df3.geometry.x  # extract longitude from geometry
@@ -525,9 +526,26 @@ with main_cl:
                     ),
                 ],
             ))
-        with tab3b:
-            st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble,
-                         unsafe_allow_html=True)
-            st.image("img/indonesia_bubble.png",use_column_width=True)
+
+            with tab3b:
+                df = pd.read_csv('data/idn_hs_by_prov.csv')
+                # Create the choropleth bubble map
+                fig = px.scatter_mapbox(
+                    df,
+                    lat="latitude",
+                    lon="longitude",
+                    size="count",  # Bubble size based on the "count" attribute
+                    mapbox_style="carto-darkmatter",  # Choose a suitable projection
+                    labels={"count": "Jumlah Hotspot"},
+                    hover_name="prov",  # Display count on hover
+                    color_discrete_sequence=["red"],  # Customize bubble color
+                    height=600,
+                    zoom=4,
+                    center=dict(lat=-3.1924, lon=117.3634),  # this will center on the point
+                )
+
+                # Show the map
+                st.plotly_chart(fig, use_container_width=True)
+                st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
 
 
