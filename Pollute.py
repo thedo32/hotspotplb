@@ -512,8 +512,8 @@ with main_cl:
                 map_style='dark',
                 views=pdk.View(type="mapview", controller=True),
                 initial_view_state=pdk.ViewState(
-                    latitude=-3.1952,
-                    longitude=117.6524,
+                    latitude=-3.1940,
+                    longitude=117.5540,
                     zoom=3.75,
                 ),
                 layers=[
@@ -541,7 +541,7 @@ with main_cl:
                     color_discrete_sequence=["red"],  # Customize bubble color
                     height=600,
                     zoom=3.75,
-                    center=dict(lat=-3.1924, lon=117.3634),  # this will center on the point
+                    center=dict(lat=-3.1940, lon=117.5540),  # this will center on the point
                 )
 
                 # Show the map
