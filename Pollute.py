@@ -540,12 +540,12 @@ with main_cl:
                     hover_name="prov",  # Display count on hover
                     color_discrete_sequence=["red"],  # Customize bubble color
                     height=600,
-                    zoom=4,
+                    zoom=3.75,
                     center=dict(lat=-3.1924, lon=117.3634),  # this will center on the point
                 )
 
                 # Show the map
                 st.plotly_chart(fig, use_container_width=True)
-                st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
+                #st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
 
 
