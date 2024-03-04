@@ -13,3 +13,4 @@ streamlit==1.31.1
 streamlit-float
 streamlit-antd-components
 streamlit-option-menu
+plotly-express
