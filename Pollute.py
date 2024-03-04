@@ -514,7 +514,7 @@ with main_cl:
                 initial_view_state=pdk.ViewState(
                     latitude=-3.1940,
                     longitude=117.5540,
-                    zoom=3.75,
+                    zoom=3.7,
                 ),
                 layers=[
                     pdk.Layer(
@@ -540,7 +540,7 @@ with main_cl:
                     hover_name="prov",  # Display count on hover
                     color_discrete_sequence=["red"],  # Customize bubble color
                     height=600,
-                    zoom=3.75,
+                    zoom=3.7,
                     center=dict(lat=-3.1940, lon=117.5540),  # this will center on the point
                 )
 
