@@ -10,7 +10,7 @@ import plotly.express as px
 
 
 st.set_page_config(
-    page_title = "Polusi Udara dan Hotspot Kebakaran Lahan Hutan",
+    page_title = "Hotspot Kebakaran Lahan Hutan dan Polusi Udara",
     page_icon="fishtail.png",
     layout="wide",
 )
@@ -74,8 +74,8 @@ rr_avg_now = rr_now.mean(axis=0)
 
 
 
-st.markdown("<h1 style='text-align: center; color: orange;'> Pengaruh Hotspot Di Musim El Nino"
-            " <br> Terhadap Generasi Masa Depan Indonesia <br><br></h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Pengaruh Hotspot Di Musim El Nino"
+            " <br> Terhadap Generasi Masa Depan<br><br></h1>", unsafe_allow_html=True)
 
 #perbedaan tahun sebelumnya dan sekarang
 hs_diff = 100.0 * ((sumselhs - sumselhs_prev)/sumselhs_prev)
@@ -105,7 +105,7 @@ with left_cl:
      containup.float()
      containup.markdown("[🆙 UP 🆙](#pendahuluan)", unsafe_allow_html=True)
      with st.container(border=True):
-        st.markdown("<h5 style='text-align: left; color: orange;'>Section:</h5>", unsafe_allow_html=True)
+        st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
         - [Peta](#peta-sebaran-hotspot-kebakaran-hutan-lahan-bulan-oktober-2023)
         - [Diagram](#diagram-tingkat-ispu-harian-pada-bulan-oktober-2023)
@@ -213,84 +213,115 @@ with main_cl:
 
         df = pd.read_csv('data/max_hs_pl_palembang_distinct.csv')
 
-        data = pd.pivot_table(
-            data=df,
-            index=['tgl'],
-            aggfunc={
-                'Value':pd.Series.nunique,
-                'Tanggal':pd.Series.nunique,
-            }
-        ).reset_index()
+        # data = pd.pivot_table(
+        #     data=df,
+        #     index=['Remarks'],
+        #     aggfunc={
+        #         'Value':pd.Series.nunique,
+        #         'Tanggal':pd.Series.nunique,
+        #     }
+        # ).reset_index()
 
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.subheader("Diagram Tingkat ISPU Harian Pada Bulan Oktober 2023")
-        # st.markdown("<br><h4 style='text-align: center; color: red;'>Tingkat ISPU PM 2.5 per Hari di Bulan Oktober 2023</h4>", unsafe_allow_html=True)
+        st.subheader("Diagram Tingkat ISPU Pada Bulan Oktober 2023")
+        # # st.markdown("<br><h4 style='text-align: center; color: red;'>Tingkat ISPU PM 2.5 per Hari di Bulan Oktober 2023</h4>", unsafe_allow_html=True)
+        #
+        # threshold1 = 51.0
+        # threshold2 = 101.0
+        # threshold3 = 201.0
+        # threshold4 = 301.0
+        #
+        colBar, colArc = st.columns([7,4])
+        with colBar:
+            bars = alt.Chart(df).mark_bar(size=50).encode(
+            y="Status:O",
+            x="count(Value):Q",
+            color=alt.Color("max(Color):N", scale=None)
+            ).properties(height=300).interactive()
+            st.altair_chart(bars, use_container_width=True)
+        with colArc:
 
-        threshold1 = 51.0
-        threshold2 = 101.0
-        threshold3 = 201.0
-        threshold4 = 301.0
+            base = alt.Chart(df).mark_arc().encode(
+                alt.Color("Persentase:O").legend(None),
+                alt.Theta("count(Value):Q").stack(True),
+                # color=alt.Color("max(Color)", scale=None)
+            ).properties(height=250, width=250).interactive()
 
-        bars = alt.Chart(df).mark_bar(color="green", opacity=0.2).encode(
-            x="Tanggal:O",
-            y="Value:Q",
-        )
+            pie = base.mark_arc(outerRadius=120)
+            text = base.mark_text(radius=150, size=12).encode(text="Status:N")
 
-        highlight1 = bars.mark_bar(color="blue", opacity=0.2).encode(
-            y2=alt.Y2(datum=threshold1)
-        ).transform_filter(
-            alt.datum.Value > threshold1
-        )
 
-        highlight2 = bars.mark_bar(color="yellow").encode(
-            y2=alt.Y2(datum=threshold2)
-        ).transform_filter(
-            alt.datum.Value > threshold2
-        )
 
-        highlight3 = bars.mark_bar(color="red").encode(
-            y2=alt.Y2(datum=threshold3)
-        ).transform_filter(
-            alt.datum.Value > threshold3
-        )
+            st.altair_chart(pie + text, use_container_width=True)
+        #
+        # highlight1 = bars.mark_bar(color="blue", opacity=0.2).encode(
+        #     y2=alt.Y2(datum=threshold1)
+        # ).transform_filter(
+        #     alt.datum.Value > threshold1
+        # )
+        #
+        # highlight2 = bars.mark_bar(color="yellow").encode(
+        #     y2=alt.Y2(datum=threshold2)
+        # ).transform_filter(
+        #     alt.datum.Value > threshold2
+        # )
+        #
+        # highlight3 = bars.mark_bar(color="red").encode(
+        #     y2=alt.Y2(datum=threshold3)
+        # ).transform_filter(
+        #     alt.datum.Value > threshold3
+        # )
+        #
+        # rule1 = alt.Chart().mark_rule(size=2).encode(
+        #     y=alt.Y(datum=threshold2)
+        # )
+        #
+        # label1 = rule1.mark_text(
+        #     x="width",
+        #     dx=-2,
+        #     align="right",
+        #     baseline="bottom",
+        #     fontSize=15,
+        #     text="TIDAK SEHAT",
+        #     color="grey"
+        #
+        # )
+        #
+        # rule2 = alt.Chart().mark_rule(size=2).encode(
+        #     y=alt.Y(datum=threshold3)
+        # )
+        #
+        # label2 = rule2.mark_text(
+        #     x="width",
+        #     dx=-2,
+        #     align="right",
+        #     baseline="bottom",
+        #     fontSize=15,
+        #     text="SANGAT TIDAK SEHAT",
+        #     color="grey"
+        # )
+        #
+        # st.altair_chart(bars + highlight1 + highlight2 + highlight3 + rule1 + label1 +rule2 + label2, use_container_width=True)
 
-        rule1 = alt.Chart().mark_rule(size=2).encode(
-            y=alt.Y(datum=threshold2)
-        )
 
-        label1 = rule1.mark_text(
-            x="width",
-            dx=-2,
-            align="right",
-            baseline="bottom",
-            fontSize=15,
-            text="TIDAK SEHAT",
-            color="grey"
-
-        )
-
-        rule2 = alt.Chart().mark_rule(size=2).encode(
-            y=alt.Y(datum=threshold3)
-        )
-
-        label2 = rule2.mark_text(
-            x="width",
-            dx=-2,
-            align="right",
-            baseline="bottom",
-            fontSize=15,
-            text="SANGAT TIDAK SEHAT",
-            color="grey"
-        )
-
-        st.altair_chart(bars + highlight1 + highlight2 + highlight3 + rule1 + label1 +rule2 + label2, use_container_width=True)
-
-        left_co, cent_co,last_co = st.columns([1,10,1])
-        with cent_co:
-            st.write("✨ ISPU fokus pada PM 2.5 yang merupakan partikel"
-             " pencemar paling berpengaruh"
-             " bagi kesehatan - [DitppuLHK](%s)" % url)
+        with st.expander("Tabel Indeks Standar Pencemar Udara"):
             st.image("img/kategori_ispu.png")
+
+        with st.expander("Analisis ISPU"):
+            st.write("Analisis ISPU fokus pada PM 2.5 yang merupakan partikel"
+                     " pencemar paling berpengaruh"
+                     " bagi kesehatan - [DitppuLHK](%s)" % url)
+            st.write(
+                "Particulate Matter (PM2.5) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5 µm (mikrometer).\n"
+                "PM2.5 berbahaya bagi orang-orang dari segala usia namun sangat berbahaya bagi anak-anak. \n"
+                "Dibandingkan orang dewasa, tubuh anak-anak lebih rentan terhadap polusi PM2.5 ini. \n "
+                "Partikel kecil ini dapat menyebabkan banyak dampak negatif terhadap kesehatan \n"
+                "pada anak termasuk asma, penurunan volume otak, disfungsi perilaku, ADHD, Autism Spectrum Disorder (ASD), \n"
+                "dan gangguan pertumbuhan paru-paru. \n"
+                "Paparan seorang ibu terhadap PM2.5 selama kehamilannya meningkatkan risiko kelahiran prematur, \n"
+                " berat badan lahir rendah, dan lahir mati.")
+            st.write("Dari diagram di atas dapat kita lihat di Kota Palembang pad Bulan Oktober 2023 telah terjadi pencemaran udara di level Sangat Tidak Sehat")
+
 
 
         #dataframe untuk korrelasi
@@ -327,7 +358,7 @@ with main_cl:
                 scatter2 = alt.Chart(data).mark_point().encode(
                     x="Jarak:Q",
                     y="ISPU_PM_2_5:Q",
-                )
+                ).interactive()
 
                 st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
 
@@ -336,7 +367,7 @@ with main_cl:
                 scatter = alt.Chart(df2).mark_point().encode(
                     x="Curah_Hujan:Q",
                     y="ISPU_PM_2_5:Q",
-                )
+                ).interactive()
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
@@ -345,7 +376,7 @@ with main_cl:
                 scatter = alt.Chart(df2).mark_point().encode(
                     x="Kecepatan_Angin:Q",
                     y="ISPU_PM_2_5:Q",
-                )
+                ).interactive()
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
@@ -359,7 +390,7 @@ with main_cl:
                     x="Temperatur:Q",
                     y="ISPU_PM_2_5:Q",
                     color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
-                )
+                ).interactive()
 
                 st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
 
@@ -369,7 +400,7 @@ with main_cl:
                     x="Kecerahan_Channel_4:Q",
                     y="ISPU_PM_2_5:Q",
                     color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
-                )
+                ).interactive()
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
@@ -379,7 +410,7 @@ with main_cl:
                     x="Kecerahan_Channel_5:Q",
                     y="ISPU_PM_2_5:Q",
                     color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
-                )
+                ).interactive()
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
@@ -392,16 +423,16 @@ with main_cl:
                 scatter = alt.Chart(data).mark_point().encode(
                     x="Curah_Hujan:Q",
                     y="Hotspot_harian:Q",
-                )
+                ).interactive()
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
             with angin_hss:
                 st.markdown("<h5 style='text-align: center; color: white;'>Kecepatan Angin rata2 (C) dan Jumlah Hotspot Harian</h5>", unsafe_allow_html=True)
                 scatter2 = alt.Chart(data).mark_point().encode(
-                x="Kecepatan_Angin:Q",
-                y="Hotspot_harian:Q",
-                 )
+                    x="Kecepatan_Angin:Q",
+                    y="Hotspot_harian:Q",
+                ).interactive()
 
                 st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
 
@@ -413,7 +444,7 @@ with main_cl:
                     x="Temperatur:Q",
                     y="Hotspot_harian:Q",
                     color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
-                )
+                ).interactive()
 
                 st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
 
@@ -423,7 +454,7 @@ with main_cl:
                     x="Temperatur:Q",
                     y="Kecerahan_Channel_4:Q",
                 color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
-                )
+                ).interactive()
 
                 st.altair_chart(scatter, use_container_width=True)
 
@@ -433,16 +464,17 @@ with main_cl:
                     x="Temperatur:Q",
                     y="Kecerahan_Channel_5:Q",
                     color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
-                )
+                ).interactive()
 
                 st.altair_chart(scatter2, theme='streamlit', use_container_width=True)
 
 with st.container(border=True):
     st.subheader("Insight")
-    st.markdown(
-            "<h4 style='text-align: center; color: red;'>Partikel Kecil Mengancam Generasi Masa Depan Indonesia</h4>",
-            unsafe_allow_html=True)
-    st.write("Particulate Matter (PM2.5) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5 µm (mikrometer).\n"
+    with st.expander("Partikel Kecil Mengancam Generasi Masa Depan"):
+        #st.markdown(
+        #     "<h4 style='text-align: center; color: red;'>Partikel Kecil Mengancam Generasi Masa Depan</h4>",
+        #     unsafe_allow_html=True)
+        st.write("Particulate Matter (PM2.5) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5 µm (mikrometer).\n"
              "PM2.5 berbahaya bagi orang-orang dari segala usia namun sangat berbahaya bagi anak-anak. \n"
              "Dibandingkan orang dewasa, tubuh anak-anak lebih rentan terhadap polusi PM2.5 ini. \n " 
              "Partikel kecil ini dapat menyebabkan banyak dampak negatif terhadap kesehatan \n" 
@@ -450,7 +482,7 @@ with st.container(border=True):
              "dan gangguan pertumbuhan paru-paru. \n"
              "Paparan seorang ibu terhadap PM2.5 selama kehamilannya meningkatkan risiko kelahiran prematur, \n" 
              " berat badan lahir rendah, dan lahir mati.")
-    st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan antara lain: "
+        st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan antara lain: "
              " - Langkah Pencegahan ini yang paling penting!: Menggunakan sumber daya  yang tersedia meng-edukasi masyarakat dan membuat payung-payung hukum yang lengkap dan detail yang untuk mencegah terjadinya kebakaran hutan lahan baik yang disengaja maupun tidak disengaja (99% disengajakan oleh manusia menurut BNPB). Kemudian belajar lagi dari propinsi tentangga untuk pencegahan kebakaran hutan lahan."
              " - Langkah Kesiapsiagaan: Menyiapkan alat pelindung, pengobatan, pangan yang cukup. Juga menyiapkan kurikulum-kurikulum untuk belajar daring jika diperlukan ketika terjadi kekeringan dan diikuti bencana Karhutla lagi, untuk melindungi Generasi Masa Depan, juga penyiapan mitigasi dan evakuasi bencana yang diperlukan."
              " - Langkah Kedaruratan dan Pemulihan: Mengerahkan sumber daya yang ada dalam hal pemadaman, pembuatan saluran-saluran air yang memadai, serta sarana dan prasarana lain yang mendukung kedaruratan dan pemulihan bencana.")
