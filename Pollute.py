@@ -425,7 +425,7 @@ with ((main_cl)):
 
             option2 = st.selectbox(
                 "Pilih Data yang ingin dikorrelasikan dengan Jumlah Hotspot Harian",
-                ("Presipitasi dan Hotspot", "Kecepatan  Angin dan Hotspot",
+                ("Presipitasi dan Hotspot", "Kecepatan Angin dan Hotspot",
                  "Temperatur dan Hotspot", "Temperatur dan Kecerahan Channel 4",
                  "Temperatur dan Kecerahan Channel 5")
             )
