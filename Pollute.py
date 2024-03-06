@@ -114,12 +114,22 @@ with left_cl:
         """, unsafe_allow_html=True)
      st.markdown("<br>", unsafe_allow_html=True)
      with st.container(border=True):
-        st.image("img/free_palestine.png")
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.image("img/from_river.png")
+
+         # Create the gaza map
+         plt = px.scatter_mapbox(
+             mapbox_style="carto-darkmatter",
+             height=2300,
+             zoom=11.4,
+             center=dict(lat=31.330792385557853, lon=34.45688377828622)  # this will center on the point
+         )
+
+         st.plotly_chart(plt, use_container_width=True)
+        # st.image("img/free_palestine.png")
+        # st.markdown("<br>", unsafe_allow_html=True)
+        # st.image("img/from_river.png")
      st.markdown("<br>", unsafe_allow_html=True)
      with st.container(border=True):
-        st.markdown("<p style='text-align: left; color: orange;'>By: Jeffri Argon</p>", unsafe_allow_html=True)
+        st.markdown("<p style='text-align: left; color: #0B60B0;'>By: Jeffri Argon</p>", unsafe_allow_html=True)
 
 
      #css function for column
@@ -129,7 +139,7 @@ with left_cl:
      #
      # local_css("style.css")
 
-with main_cl:
+with ((main_cl)):
     with st.container(border=True):
         with st.container(border=True):
             st.write("Menurut data [SIPONGI KLHK](%s)" % urlsipongi + " dan [FIRMS NASA](%s)" % urlfirms + " pada bulan Oktober 2023, di wilayah Propinsi Sumatera Selatan yang mempunyai penduduk 8,6 juta jiwa (BPS 2022), dan mempunyai metropolitan yang berkembang yakni Patungraya Agung yang berpenduduk 2,6 juta jiwa (BPS 2020), khususnya Kota Palembang yang berpenduduk sekitar 1,7 juta jiwa (BPS 2022), terjadi puncak kejadian Bencana Kebakaran Hutan Lahan yang diperparah oleh fenomena El Nino. Kejadian ini mengakibatkan terpaparnya polusi kabut asap yang mempunyai risiko tinggi terhadap masyarakat, terutama pada kelompok rentan seperti anak-anak dan ibu hamil yang dapat mengancam Generasi Masa Depan Indonesia")
@@ -235,24 +245,24 @@ with main_cl:
         with colBar:
             bars = alt.Chart(df).mark_bar(size=50).encode(
             y="Status:O",
-            x="count(Value):Q",
+            x=alt.X("count(Value):Q", title="Jumlah Hari"),
             color=alt.Color("max(Color):N", scale=None)
-            ).properties(height=300).interactive()
+            ).properties(height=350).interactive()
             st.altair_chart(bars, use_container_width=True)
         with colArc:
+            pct = st.checkbox("Persentase")
+            if pct:
+            #st.markdown("<p style='text-align: center; color: white;'>Persentase</p>", unsafe_allow_html=True)
+                base = alt.Chart(df).mark_arc(innerRadius=45, outerRadius=90).encode(
+                    alt.Color("Persentase:O").legend(None),
+                    alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
+                    # color=alt.Color("max(Color)", scale=None)
+                ).properties(height=250, width=250).interactive()
 
-            base = alt.Chart(df).mark_arc().encode(
-                alt.Color("Persentase:O").legend(None),
-                alt.Theta("count(Value):Q").stack(True),
-                # color=alt.Color("max(Color)", scale=None)
-            ).properties(height=250, width=250).interactive()
-
-            pie = base.mark_arc(outerRadius=120)
-            text = base.mark_text(radius=150, size=12).encode(text="Status:N")
-
-
-
-            st.altair_chart(pie + text, use_container_width=True)
+                text = base.mark_text(radius=120, size=12).encode(text="Status:N")
+                st.altair_chart(base + text, use_container_width=True)
+            else:
+                ""
         #
         # highlight1 = bars.mark_bar(color="blue", opacity=0.2).encode(
         #     y2=alt.Y2(datum=threshold1)
@@ -351,122 +361,117 @@ with main_cl:
 
         #korrelasi pm2_5 dengan jarak, curah hujan, kecepatan angin
         with tab4:
-            jarak_hs, hujan_hs, angin_hs = st.columns(3)
+            option = st.selectbox(
+                    "Pilih Data yang ingin dikorrelasikan dengan ISPU PM 2.5 Harian",
+                    ("Jarak dan ISPU PM 2.5", "Presipitasi dan ISPU PM 2.5", "Kecepatan  Angin dan ISPU PM 2.5",
+                     "Temperatur dan ISPU PM 2.5", "Kecerahan Channel 4 dan ISPU PM 2.5",
+                     "Kecerahan Channel 5 dan ISPU PM 2.5")
+                )
+            if option=="Jarak dan ISPU PM 2.5":
+                    scatter= alt.Chart(data).mark_point(size=50).encode(
+                        x=alt.X("Jarak:Q", title="Jarak (km)"),
+                        y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+                    ).interactive().properties(height=500)
 
-            with jarak_hs:
-                st.markdown("<h5 style='text-align: center; color: white;'>Jarak Hs rata2 (km) dan ISPU PM 2.5 Harian</h5>", unsafe_allow_html=True)
-                scatter2 = alt.Chart(data).mark_point().encode(
-                    x="Jarak:Q",
-                    y="ISPU_PM_2_5:Q",
-                ).interactive()
+                    st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
-                st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
-
-            with hujan_hs:
-                st.markdown("<h5 style='text-align: center; color: white;'>Presipitasi rata2 (mm) dan ISPU PM 2.5 Harian</h5>", unsafe_allow_html=True)
+            if option=="Presipitasi dan ISPU PM 2.5":
                 scatter = alt.Chart(df2).mark_point().encode(
-                    x="Curah_Hujan:Q",
-                    y="ISPU_PM_2_5:Q",
-                ).interactive()
+                    x=alt.X("Curah_Hujan:Q", title="Presipitasi (mm)"),
+                    y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+                ).interactive().properties(height=500)
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
-            with angin_hs:
-                st.markdown("<h5 style='text-align: center; color: white;'>Angin rata2 (m/dtk) dan ISPU PM 2.5 Harian</h5>", unsafe_allow_html=True)
+            if option=="Kecepatan  Angin dan ISPU PM 2.5":
                 scatter = alt.Chart(df2).mark_point().encode(
-                    x="Kecepatan_Angin:Q",
-                    y="ISPU_PM_2_5:Q",
-                ).interactive()
+                    x=alt.X("Kecepatan_Angin:Q", title="Kecepatan Angin (m/detik)"),
+                    y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+                ).interactive().properties(height=500)
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
 
             #korrelasi dengan pm2_5 dengan temperatur, kecerahan channel 4 dan 5
-            temp_hs, bright4_hs , bright5_hs = st.columns(3)
-
-            with temp_hs:
-                st.markdown("<h5 style='text-align: center; color: white;'>Temperatur rata2 (C) dan ISPU PM 2.5 Harian</h5>", unsafe_allow_html=True)
-                scatter2 = alt.Chart(data).mark_point().encode(
-                    x="Temperatur:Q",
-                    y="ISPU_PM_2_5:Q",
+            if option=="Temperatur dan ISPU PM 2.5":
+                scatter = alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
+                    y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
                     color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
-                ).interactive()
-
-                st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
-
-            with bright4_hs:
-                st.markdown("<h5 style='text-align: center; color: white;'>Hs Channel 4 rata2 (K)  dan ISPU PM 2.5 Harian</h5>", unsafe_allow_html=True)
-                scatter = alt.Chart(data).mark_point().encode(
-                    x="Kecerahan_Channel_4:Q",
-                    y="ISPU_PM_2_5:Q",
-                    color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
-                ).interactive()
+                ).interactive().properties(height=500)
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
-            with bright5_hs:
-                st.markdown("<h5 style='text-align: center; color: white;'>Hs Channel 5 rata2 (K) dan ISPU PM 2.5 Harian</h5>", unsafe_allow_html=True)
-                scatter = alt.Chart(data).mark_point().encode(
-                    x="Kecerahan_Channel_5:Q",
-                    y="ISPU_PM_2_5:Q",
+            if option=="Kecerahan Channel 4 dan ISPU PM 2.5":
+                scatter = alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Kecerahan_Channel_4:Q", title="Kecerahan Channel 4 (Kelvin)"),
+                    y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+                    color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
+                ).interactive().properties(height=500)
+
+                st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
+
+            if option=="Kecerahan Channel 5 dan ISPU PM 2.5":
+                scatter = alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Kecerahan_Channel_5:Q", title="Kecerahan Channel 5 (Kelvin)"),
+                    y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
                     color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
-                ).interactive()
+                ).interactive().properties(height=500)
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
         with tab5:
             # korrelasi jumlah hotspot dengan curah hujan, temperatur
 
-            hujan_hss, angin_hss = st.columns(2)
-            with hujan_hss:
-                st.markdown("<h5 style='text-align: center; color: white;'>Presipitasi rata2 (mm) dan Jumlah Hotspot Harian</h5>", unsafe_allow_html=True)
-                scatter = alt.Chart(data).mark_point().encode(
-                    x="Curah_Hujan:Q",
-                    y="Hotspot_harian:Q",
-                ).interactive()
+            option2 = st.selectbox(
+                "Pilih Data yang ingin dikorrelasikan dengan Jumlah Hotspot Harian",
+                ("Presipitasi dan Hotspot", "Kecepatan  Angin dan Hotspot",
+                 "Temperatur dan Hotspot", "Temperatur dan Kecerahan Channel 4",
+                 "Temperatur dan Kecerahan Channel 5")
+            )
+            if option2 == "Presipitasi dan Hotspot":
+                scatter = alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Curah_Hujan:Q", title="Presipitasi (mm)"),
+                    y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
+                ).interactive().properties(height=500)
 
                 st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
-            with angin_hss:
-                st.markdown("<h5 style='text-align: center; color: white;'>Kecepatan Angin rata2 (C) dan Jumlah Hotspot Harian</h5>", unsafe_allow_html=True)
-                scatter2 = alt.Chart(data).mark_point().encode(
-                    x="Kecepatan_Angin:Q",
-                    y="Hotspot_harian:Q",
-                ).interactive()
+            if option2 == "Kecepatan Angin dan Hotspot":
+                scatter= alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Kecepatan_Angin:Q", title="Kecepatan Angin (m/detik)"),
+                    y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
+                ).interactive().properties(height=500)
 
-                st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
+                st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
 
-            temp_hss, bright4_hss, bright5_hss = st.columns(3)
-            with temp_hss:
-                st.markdown("<h5 style='text-align: center; color: white;'>Temperatur rata2 (C) dan Jumlah Hotspot Harian</h5>", unsafe_allow_html=True)
-                scatter2 = alt.Chart(data).mark_point().encode(
-                    x="Temperatur:Q",
-                    y="Hotspot_harian:Q",
+            if option2 ==  "Temperatur dan Hotspot":
+                scatter= alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
+                    y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
                     color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
-                ).interactive()
+                ).interactive().properties(height=500)
 
-                st.altair_chart(scatter2, theme='streamlit',  use_container_width=True)
+                st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
 
-            with bright4_hss:
-                st.markdown("<h5 style='text-align: center; color: white;'>Temperatur rata2 (C) dan Hs Channel 4 (K) rata2 Harian</h5></h5>",unsafe_allow_html=True)
-                scatter = alt.Chart(data).mark_point().encode(
-                    x="Temperatur:Q",
-                    y="Kecerahan_Channel_4:Q",
-                color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
-                ).interactive()
+            if option2=="Temperatur dan Kecerahan Channel 4":
+                scatter = alt.Chart(data).mark_point(size=50).encode(
+                    x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
+                    y=alt.Y("Kecerahan_Channel_4:Q", title="Kecerahan Channel 4 (Kelvin)"),
+                    color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
+                ).interactive().properties(height=500)
 
                 st.altair_chart(scatter, use_container_width=True)
 
-            with bright5_hss:
-                st.markdown("<h5 style='text-align: center; color: white;'>Temperatur rata2 (C) dan Hs Channel 5 rata2 (K) Harian</h5>",unsafe_allow_html=True)
-                scatter2 = alt.Chart(data).mark_point().encode(
-                    x="Temperatur:Q",
-                    y="Kecerahan_Channel_5:Q",
-                    color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
-                ).interactive()
+            if option2=="Temperatur dan Kecerahan Channel 5":
+               scatter= alt.Chart(data).mark_point(size=50).encode(
+                   x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
+                   y=alt.Y("Kecerahan_Channel_5:Q", title="Kecerahan Channel 5 (Kelvin)"),
+                   color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
+               ).interactive().properties(height=500)
 
-                st.altair_chart(scatter2, theme='streamlit', use_container_width=True)
+               st.altair_chart(scatter, theme='streamlit', use_container_width=True)
 
 with st.container(border=True):
     st.subheader("Insight")
