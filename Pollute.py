@@ -103,7 +103,7 @@ left_cl, main_cl= st.columns([1,8])
 with left_cl:
      containup = st.container()
      containup.float()
-     containup.markdown("[🆙 UP 🆙](#pendahuluan)", unsafe_allow_html=True)
+     containup.markdown("[↗️⬆️↖️](#pendahuluan)", unsafe_allow_html=True)
      with st.container(border=True):
         st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
