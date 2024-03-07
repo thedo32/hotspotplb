@@ -6,6 +6,8 @@ import altair as alt
 import streamlit as st
 import pandas as pd
 import plotly.express as px
+import st_mapbox as mpb
+import streamlit_plotly_mapbox_events as pmb
 
 
 
@@ -13,6 +15,10 @@ st.set_page_config(
     page_title = "Hotspot Kebakaran Lahan Hutan dan Polusi Udara",
     page_icon="fishtail.png",
     layout="wide",
+    menu_items={"About":"#### Pengaruh Hotspot Di Puncak Musim El Nino"
+            " Terhadap Generasi Masa Depan. "
+                        "+ Author: *Jeffri Argon* "
+                        "+ Email: *jeffriargon@gmail.com* ####"}
 )
 float_init()
 
