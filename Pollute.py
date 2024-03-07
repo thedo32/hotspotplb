@@ -114,19 +114,18 @@ with left_cl:
         """, unsafe_allow_html=True)
      st.markdown("<br>", unsafe_allow_html=True)
      with st.container(border=True):
+         #Create the gaza map
+         plt = px.scatter_mapbox(
+             mapbox_style="carto-darkmatter",
+             height=2200,
+             zoom=11.4,
+             center=dict(lat=31.352708, lon=34.458485)  # this will center on the point
+         )
 
-         # Create the gaza map
-         # plt = px.scatter_mapbox(
-         #     mapbox_style="carto-darkmatter",
-         #     height=2200,
-         #     zoom=11.4,
-         #     center=dict(lat=31.349901980627873, lon=34.458367405242676)  # this will center on the point
-         # )
-         #
-         # st.plotly_chart(plt, use_container_width=True)
+         st.plotly_chart(plt, use_container_width=True)
         # st.image("img/free_palestine.png")
         # st.markdown("<br>", unsafe_allow_html=True)
-        st.image("img/from_river.png")
+        # st.image("img/from_river.png")
      st.markdown("<br>", unsafe_allow_html=True)
      with st.container(border=True):
         st.markdown("<p style='text-align: left; color: #0B60B0;'>By: Jeffri Argon</p>", unsafe_allow_html=True)
