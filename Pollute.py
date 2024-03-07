@@ -74,7 +74,7 @@ rr_avg_now = rr_now.mean(axis=0)
 
 
 
-st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Pengaruh Hotspot Di Musim El Nino"
+st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Pengaruh Hotspot Di Puncak Musim El Nino"
             " <br> Terhadap Generasi Masa Depan<br><br></h1>", unsafe_allow_html=True)
 
 #perbedaan tahun sebelumnya dan sekarang
@@ -118,9 +118,9 @@ with left_cl:
          # Create the gaza map
          plt = px.scatter_mapbox(
              mapbox_style="carto-darkmatter",
-             height=2300,
+             height=2200,
              zoom=11.4,
-             center=dict(lat=31.330792385557853, lon=34.45688377828622)  # this will center on the point
+             center=dict(lat=31.349901980627873, lon=34.458367405242676)  # this will center on the point
          )
 
          st.plotly_chart(plt, use_container_width=True)
@@ -142,7 +142,16 @@ with left_cl:
 with ((main_cl)):
     with st.container(border=True):
         with st.container(border=True):
-            st.write("Menurut data [SIPONGI KLHK](%s)" % urlsipongi + " dan [FIRMS NASA](%s)" % urlfirms + " pada bulan Oktober 2023, di wilayah Propinsi Sumatera Selatan yang mempunyai penduduk 8,6 juta jiwa (BPS 2022), dan mempunyai metropolitan yang berkembang yakni Patungraya Agung yang berpenduduk 2,6 juta jiwa (BPS 2020), khususnya Kota Palembang yang berpenduduk sekitar 1,7 juta jiwa (BPS 2022), terjadi puncak kejadian Bencana Kebakaran Hutan Lahan yang diperparah oleh fenomena El Nino. Kejadian ini mengakibatkan terpaparnya polusi kabut asap yang mempunyai risiko tinggi terhadap masyarakat, terutama pada kelompok rentan seperti anak-anak dan ibu hamil yang dapat mengancam Generasi Masa Depan Indonesia")
+            st.write("Menurut data [SIPONGI KLHK](%s)" % urlsipongi + " dan [FIRMS NASA](%s)" % urlfirms + " "
+                      "pada bulan Oktober 2023, di wilayah Propinsi Sumatera Selatan yang mempunyai penduduk 8,6 juta jiwa (BPS 2022), "
+                      "dan mempunyai metropolitan yang berkembang yakni Patungraya Agung yang berpenduduk 2,6 juta jiwa (BPS 2020), "
+                      "khususnya Kota Palembang yang berpenduduk sekitar 1,7 juta jiwa (BPS 2022), "
+                      "terdapat hotspot terbanyak dari kejadian Bencana Kebakaran Hutan Lahan dibanding propinsi lain di Indonesia, yang diperparah oleh fenomena El Nino."
+                      "Penulis fokus melakukan analisis pada bulan oktober yang merupakan puncak dari musim El Nino Tahun 2023"
+                      "berdasarkan data historikal Sipongi sering terjadi puncak kebakaran hutan lahan di bulan oktober."
+                      "Selain itu juga karena normalnya musim penghujan di mulai bulan oktober, namun menurut data BMKG,  presipitasi sangat rendah di bulan Oktober 2023 tersebut. "
+                      "Kondisi ini mengakibatkan terpaparnya polusi kabut asap yang mempunyai risiko tinggi terhadap masyarakat, "
+                      "terutama pada kelompok rentan seperti anak-anak dan ibu hamil yang dapat mengancam Generasi Masa Depan")
             # expander for sipongi historical data
             with st.expander("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK"):
                 colmat1, colmat2, colmat3 = st.columns(3)
@@ -231,6 +240,13 @@ with ((main_cl)):
         #         'Tanggal':pd.Series.nunique,
         #     }
         # ).reset_index()
+        with st.expander("Analisis Peta"):
+            st.write("Dapat dilihat disekitar Kota Palembang terdapat banyak hotspot,"
+                     "juga kalau kita melihat ke wilayah propinsi, sebaran hotspot terdapat lebih banyak di "
+                     "bagian selatan propinsi dan tidak jauh dari ibu kota propinsi tersebut. "
+                     "Jika keseluruhan di peta Indonesia dan Indonesia Bubble, "
+                     "di wilayah tersebut terlihat hotspot terbanyak dibandingkan propinsi lain di Indonesia, "
+                     "sebanyak 15,848, disusul oleh Kalimantan Tengah sebanyak  13,393 hotspot.")
 
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.subheader("Diagram Tingkat ISPU Pada Bulan Oktober 2023")
@@ -330,7 +346,13 @@ with ((main_cl)):
                 "dan gangguan pertumbuhan paru-paru. \n"
                 "Paparan seorang ibu terhadap PM2.5 selama kehamilannya meningkatkan risiko kelahiran prematur, \n"
                 " berat badan lahir rendah, dan lahir mati.")
-            st.write("Dari diagram di atas dapat kita lihat di Kota Palembang pad Bulan Oktober 2023 telah terjadi pencemaran udara di level Sangat Tidak Sehat")
+            st.write("Dari diagram di atas dapat kita lihat di Kota Palembang pada Bulan Oktober 2023, mayoritas status pencemaran udara berada di tingkat Tidak Sehat, "
+                     "bahkan ada 4 hari di bulan tersebut status pencemaran berada di tingkat Sangat Tidak Sehat, "
+                     "yang dapat membahayakan kondisi kesehatan manusia, terutama anak-anak."
+                     "Salah satu penyebab kondisi tersebut besar kemungkinan "
+                     "adalah kabut asap akibat kebakaran hutan lahan yang banyak terjadi selama Bulan Oktober 2023 tersebut yang merupakan puncak musim El Nino tahun 2023."
+                     "berikut ini kita bisa lihat analisa korelasi Jarak Rata2 Titik Kebakaran Hutan di sekitar Palembang, Presipitasi,"
+                     "Kecapatan Angin, Temperatur dan Kecerahan Hotspot.")
 
 
 
@@ -473,6 +495,20 @@ with ((main_cl)):
 
                st.altair_chart(scatter, theme='streamlit', use_container_width=True)
 
+        with st.expander("Analisis Korrelasi"):
+            st.write("Untuk Korrelasi ISPU PM 2.5, terdapat perbandingan cukup signifikan atara semakin dekat Jarak Rata2 Hotspot sekitar Palembang dengan memburuknya tingkat ISPU PM 2.5. "
+                     "Kemudian untuk Presipitasi terlihat juga kondisi keringnya cuaca dengan tingkat ISPU PM 2.5 yang semakin buruk."
+                     "Begitu juga dengan hembusan angin yang tidak terlalu ekstrim membuat tingkayt ISPU PM 2.5 memburuk juga disekitar wilayah titik api."
+                     "Begitu juga Temperatur rata2 Palembang serta Temperatur Kecerahan Hotspot, korrelasinya dengan ISPU PM 2.5 mempunyai sebaran yang mirip, "
+                     "dimana suhu udara panas membuat ISPU PM 2.5 semakin buruk.")
+            st.write(
+                "Untuk Korrelasi Hotspot, juga terdapat perbandingan terlihat juga kondisi keringnya cuaca dengan tingkat Jumlah Hotspot yang semakin banyak di sekitar Palembang."
+                "Hembusan angin yang tidak terlalu ekstrim membuat jumlah hotspot bertambah banyak di wilayah sekitar."
+                "Begitu juga naiknya Temperatur rata2 Palembang serta korrelasinya dengan jumlah hostpot yang bertambah banyak. "
+                "Korrelasi Temperatur rata2 kota Palembang dengan Temperatur hotspot pada Kecerahan Channel 5 lebih erat dibanding Channel 4.")
+
+
+
 with st.container(border=True):
     st.subheader("Insight")
     with st.expander("Partikel Kecil Mengancam Generasi Masa Depan"):
@@ -485,12 +521,20 @@ with st.container(border=True):
              "Partikel kecil ini dapat menyebabkan banyak dampak negatif terhadap kesehatan \n" 
              "pada anak termasuk asma, penurunan volume otak, disfungsi perilaku, ADHD, Autism Spectrum Disorder (ASD), \n"
              "dan gangguan pertumbuhan paru-paru. \n"
+             "Sangatlah penting untuk memikirkan kesehatan anak-anak kita ketika mengatasi polusi udara. Penyakit yang berhubungan dengan polusi udara akan "
+             "berdampak pada kesehatan anak-anak seumur hidup mereka."    
              "Paparan seorang ibu terhadap PM2.5 selama kehamilannya meningkatkan risiko kelahiran prematur, \n" 
-             " berat badan lahir rendah, dan lahir mati.")
-        st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan antara lain: "
-             " - Langkah Pencegahan ini yang paling penting!: Menggunakan sumber daya  yang tersedia meng-edukasi masyarakat dan membuat payung-payung hukum yang lengkap dan detail yang untuk mencegah terjadinya kebakaran hutan lahan baik yang disengaja maupun tidak disengaja (99% disengajakan oleh manusia menurut BNPB). Kemudian belajar lagi dari propinsi tentangga untuk pencegahan kebakaran hutan lahan."
-             " - Langkah Kesiapsiagaan: Menyiapkan alat pelindung, pengobatan, pangan yang cukup. Juga menyiapkan kurikulum-kurikulum untuk belajar daring jika diperlukan ketika terjadi kekeringan dan diikuti bencana Karhutla lagi, untuk melindungi Generasi Masa Depan, juga penyiapan mitigasi dan evakuasi bencana yang diperlukan."
-             " - Langkah Kedaruratan dan Pemulihan: Mengerahkan sumber daya yang ada dalam hal pemadaman, pembuatan saluran-saluran air yang memadai, serta sarana dan prasarana lain yang mendukung kedaruratan dan pemulihan bencana.")
+             " berat badan lahir rendah, dan lahir mati." )
+        st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan antara lain: Lindungilah anak-anak dari bahaya pencemaran udara yang umumnya dimulai pukul 7 pagi di "
+                 "saat anak-anak umumnya akan memulai aktivitas belajarnya,"
+                 "saat ketika kendaraan bermotor mulai memenuhi jalanan dan apalagi ketika di saat yang bersamaan terjadi paparan kabut asap akibat kebakan hutan lahan."
+                 "Untuk mengantisipasi paparan pencemaran udara sangat dianjurkan anak-anak tetap memakai masker, atau jika status udara menjadi tidak sehat bahkan berbahaya, tidak menungkinkan beraktivitas di luar ruangan "
+                 "maka diberlakukanlah aktivitas sekolah daring. Selain itu pemerintah juga harus bertekad dan mengerahkan segala sumber daya untuk segera melakukan pemadaman kebakaran hutan lahan"
+                 "Selain itu yang paling penting perlu dilakukan langkah pencegahan, menggunakan sumber daya  yang tersedia untuk meng-edukasi masyarakat dan membuat payung-payung "
+                 "hukum yang lengkap dan detail yang untuk mencegah terjadinya kebakaran hutan lahan baik yang disengaja maupun tidak disengaja (99% disengajakan oleh manusia menurut BNPB), "
+                 "serta kebijakan lain dalam upaya mendatangkan udara yang bersih di wilayah tersebut."
+                 "Sehingga paparan pencemaran udara pada anak-anak jauh lebih sedikit, akan meningkatkan kesehatan dan kecerdasan dari Generasi Masa Depan Indonesia. ")
+
 
 with st.container(border=True):
     st.write("✨ Untuk Korrelasi: Data Jarak dan Kecerahan Hotspot dihitung dalam radius maksimal 75km Kota Palembang, menyesuaikan dengan Data Temperatur, Presipitasi, serta Kecepatan Angin, yang Stasiun dan Akurasi Pengukurannya Berada di Sekitar Kota Palembang")
