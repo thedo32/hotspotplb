@@ -540,10 +540,10 @@ with st.container(border=True):
              "berdampak pada kesehatan anak-anak seumur hidup mereka."    
              "Paparan seorang ibu terhadap PM2.5 selama kehamilannya meningkatkan risiko kelahiran prematur, \n" 
              " berat badan lahir rendah, dan lahir mati." )
-        st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan antara lain: Lindungilah anak-anak dari bahaya pencemaran udara yang umumnya dimulai pukul 7 pagi di "
+        st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan perlindungan bagi anak-anak dari bahaya pencemaran udara yang umumnya dimulai pukul 7 pagi di "
                  "saat anak-anak umumnya akan memulai aktivitas belajarnya,"
                  "saat ketika kendaraan bermotor mulai memenuhi jalanan dan apalagi ketika di saat yang bersamaan terjadi paparan kabut asap akibat kebakan hutan lahan."
-                 "Untuk mengantisipasi paparan pencemaran udara sangat dianjurkan anak-anak tetap memakai masker, atau jika status udara menjadi tidak sehat bahkan berbahaya, tidak menungkinkan beraktivitas di luar ruangan "
+                 "Untuk mengantisipasi paparan pencemaran udara sangat dianjurkan anak-anak tetap memakai masker, atau jika status udara menjadi tidak sehat bahkan berbahaya, tidak memungkinkan beraktivitas di luar ruangan "
                  "maka diberlakukanlah aktivitas sekolah daring. Selain itu pemerintah juga harus bertekad dan mengerahkan segala sumber daya untuk segera melakukan pemadaman kebakaran hutan lahan"
                  "Selain itu yang paling penting perlu dilakukan langkah pencegahan, menggunakan sumber daya  yang tersedia untuk meng-edukasi masyarakat dan membuat payung-payung "
                  "hukum yang lengkap dan detail yang untuk mencegah terjadinya kebakaran hutan lahan baik yang disengaja maupun tidak disengaja (99% disengajakan oleh manusia menurut BNPB), "
