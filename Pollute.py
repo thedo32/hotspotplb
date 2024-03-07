@@ -513,9 +513,9 @@ with ((main_cl)):
         with st.expander("Analisis Korrelasi"):
             st.write("Untuk Korrelasi ISPU PM 2.5, terdapat perbandingan cukup signifikan antara semakin dekat Jarak Rata2 Hotspot sekitar Palembang dengan memburuknya tingkat ISPU PM 2.5. "
                      "Kemudian untuk Presipitasi terlihat juga kondisi keringnya cuaca dengan tingkat ISPU PM 2.5 yang semakin buruk."
-                     "Begitu juga dengan hembusan angin yang tidak terlalu ekstrim membuat tingkayt ISPU PM 2.5 memburuk juga disekitar wilayah titik api."
-                     "Begitu juga Temperatur rata2 Palembang serta Temperatur Kecerahan Hotspot, korrelasinya dengan ISPU PM 2.5 mempunyai sebaran yang mirip, "
-                     "dimana suhu udara panas membuat ISPU PM 2.5 semakin buruk.")
+                     "Begitu juga dengan hembusan angin yang tidak terlalu ekstrim membuat tingkat ISPU PM 2.5 memburuk juga disekitar wilayah titik api."
+                     "Lalu yang paling menarik adalah untuk Temperatur rata2 Palembang serta Temperatur Kecerahan Hotspot, korrelasinya dengan ISPU PM 2.5 mempunyai sebaran yang mirip, "
+                     "dimana suhu udara semakin panas dan ditunjukkan juga dengan semakin tingginya panas kecerahan hotspot membuat ISPU PM 2.5 semakin buruk")
             st.write(
                 "Untuk Korrelasi Hotspot, juga terdapat perbandingan terlihat juga kondisi keringnya cuaca dengan tingkat Jumlah Hotspot yang semakin banyak di sekitar Palembang."
                 "Hembusan angin yang tidak terlalu ekstrim membuat jumlah hotspot bertambah banyak di wilayah sekitar."
