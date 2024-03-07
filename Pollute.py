@@ -15,10 +15,10 @@ st.set_page_config(
     page_title = "Hotspot Kebakaran Lahan Hutan dan Polusi Udara",
     page_icon="fishtail.png",
     layout="wide",
-    menu_items={"About":"#### Pengaruh Hotspot Di Puncak Musim El Nino"
-            " Terhadap Generasi Masa Depan. "
-                        "/Author: *Jeffri Argon* "
-                        "/Email: *jeffriargon@gmail.com* ####"}
+    menu_items={"About":"""##### Pengaruh Hotspot Di Puncak Musim El Nino Terhadap Generasi Masa Depan. 
+            Author: Jeffri Argon
+Email: jeffriargon@gmail.com
+            """}
 )
 float_init()
 
