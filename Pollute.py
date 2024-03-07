@@ -6,8 +6,7 @@ import altair as alt
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import st_mapbox as mpb
-import streamlit_plotly_mapbox_events as pmb
+
 
 
 
