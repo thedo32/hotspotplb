@@ -119,7 +119,7 @@ with left_cl:
              mapbox_style="carto-darkmatter",
              height=2200,
              zoom=11.4,
-             center=dict(lat=31.352708, lon=34.458485)  # this will center on the point
+             center=dict(lat=31.35270801, lon=34.45848501)  # this will center on the point
          )
 
          st.plotly_chart(plt, use_container_width=True)
