@@ -17,8 +17,8 @@ st.set_page_config(
     layout="wide",
     menu_items={"About":"#### Pengaruh Hotspot Di Puncak Musim El Nino"
             " Terhadap Generasi Masa Depan. "
-                        "+ Author: *Jeffri Argon* "
-                        "+ Email: *jeffriargon@gmail.com* ####"}
+                        "/Author: *Jeffri Argon* "
+                        "/Email: *jeffriargon@gmail.com* ####"}
 )
 float_init()
 
