@@ -108,7 +108,7 @@ with left_cl:
         st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
         - [Peta](#peta-sebaran-hotspot-kebakaran-hutan-lahan-bulan-oktober-2023)
-        - [Diagram](#diagram-tingkat-ispu-harian-pada-bulan-oktober-2023)
+        - [Diagram](#diagram-tingkat-ispu-pada-bulan-oktober-2023)
         - [Korrelasi](#korrelasi)
         - [Insight](#insight)
         """, unsafe_allow_html=True)
