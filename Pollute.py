@@ -135,14 +135,6 @@ with left_cl:
      with st.container(border=True):
         st.markdown("<p style='text-align: left; color: #0B60B0;'>By: Jeffri Argon</p>", unsafe_allow_html=True)
 
-
-     #css function for column
-     # def local_css(file_name):
-     #     with open(file_name) as f:
-     #         st.markdown('<style>{}</style>'.format(f.read()), unsafe_allow_html=True)
-     #
-     # local_css("style.css")
-
 with ((main_cl)):
     with st.container(border=True):
         with st.container(border=True):
@@ -157,21 +149,8 @@ with ((main_cl)):
                       "Kondisi ini mengakibatkan terpaparnya polusi kabut asap yang mempunyai risiko tinggi terhadap masyarakat, "
                       "terutama pada kelompok rentan seperti anak-anak dan ibu hamil yang dapat mengancam Generasi Masa Depan")
             # expander for sipongi historical data
-            with st.expander("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK"):
-                colmat1, colmat2, colmat3 = st.columns(3)
-                with colmat1:
-                    st.image("img/hs_2018.png")
-                with colmat2:
-                    st.image("img/hs_2019.png")
-                with colmat3:
-                    st.image("img/hs_2020.png")
-                colmat4, colmat5, colmat6 = st.columns(3)
-                with colmat4:
-                    st.image("img/hs_2021.png")
-                with colmat5:
-                    st.image("img/hs_2022.png")
-                with colmat6:
-                    st.image("img/hs_2023.png")
+
+
 
             #links sumber bacaan
             st.markdown("* Sumber Bacaan: [BNPB](%s)" % urlbnpb + ", "
@@ -235,6 +214,10 @@ with ((main_cl)):
 
 
         df = pd.read_csv('data/max_hs_pl_palembang_distinct.csv')
+        df0 = pd.read_csv('data/max_distinct_pm25_plb_oct_2023.csv')
+        df1 = pd.read_csv('data/max_distinct_pm25_plb_oct_2022.csv')
+        df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023.csv')
+        df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
 
         # data = pd.pivot_table(
         #     data=df,
@@ -255,35 +238,82 @@ with ((main_cl)):
 
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.subheader("Diagram Tingkat ISPU Pada Bulan Oktober 2023")
-        # # st.markdown("<br><h4 style='text-align: center; color: red;'>Tingkat ISPU PM 2.5 per Hari di Bulan Oktober 2023</h4>", unsafe_allow_html=True)
-        #
+
         # threshold1 = 51.0
         # threshold2 = 101.0
         # threshold3 = 201.0
         # threshold4 = 301.0
         #
-        colBar, colArc = st.columns([7,4])
-        with colBar:
-            bars = alt.Chart(df).mark_bar(size=50).encode(
-            y="Status:O",
-            x=alt.X("count(Value):Q", title="Jumlah Hari"),
-            color=alt.Color("max(Color):N", scale=None)
-            ).properties(height=350).interactive()
-            st.altair_chart(bars, use_container_width=True)
-        with colArc:
-            pct = st.checkbox("Persentase")
-            if pct:
-            #st.markdown("<p style='text-align: center; color: white;'>Persentase</p>", unsafe_allow_html=True)
-                base = alt.Chart(df).mark_arc(innerRadius=45, outerRadius=90).encode(
-                    alt.Color("Persentase:O").legend(None),
-                    alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
+        with st.container(border=True):
+            tabBar, tabArc = st.tabs(['Status ISPU PM 2.5', 'Persentase'])
+            with tabBar:
+                colLBar, colBar, colRBar = st.columns([1,8, 1])
+                with colBar:
+                    banding = st.checkbox('Perbandingan', value=False)
+                    if banding:
+                        bars = alt.Chart(df).mark_bar(size=24).encode(
+                            y="Status:O",
+                            x=alt.X("count(Value):Q", title="Jumlah Hari"),
+                            row="Bulan:N",
+                            color=alt.Color("max(Color):N", scale=None)
+                        ).properties(height=72, width=600).interactive(bind_x=True,bind_y=True)
+                        st.altair_chart(bars)
+                    else:
+                        bars = alt.Chart(df0).mark_bar(size=30).encode(
+                            y="Status:O",
+                            x=alt.X("count(Value):Q", title="Jumlah Hari"),
+                            color=alt.Color("max(Color):N", scale=None)
+                        ).properties(height=400, width=800).interactive()
+                        st.altair_chart(bars)
+            with tabArc:
+                colLArc, colArc1, colArc2, colRArc = st.columns([1, 4, 4, 1])
+                with colArc1:
+                    okt23 = st.checkbox('Oktober 2023',value=True)
+                    if okt23:
+                        base = alt.Chart(df0).mark_arc(innerRadius=65, outerRadius=120).encode(
+                        alt.Color("Persentase:O").legend(None),
+                              alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                     # color=alt.Color("max(Color)", scale=None)
-                ).properties(height=250, width=250).interactive()
+                            ).properties(height=350, width=350).interactive()
 
-                text = base.mark_text(radius=120, size=12).encode(text="Status:N")
-                st.altair_chart(base + text, use_container_width=True)
-            else:
-                ""
+                        text = base.mark_text(radius=170, size=12).encode(text="Status:N")
+                        st.altair_chart(base + text, use_container_width=True)
+
+                with colArc2:
+                     okt22 = st.checkbox('Oktober 2022', value=False)
+                     if okt22:
+                        base = alt.Chart(df1).mark_arc(innerRadius=45, outerRadius=90).encode(
+                            alt.Color("Persentase:O").legend(None),
+                                alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
+                                # color=alt.Color("max(Color)", scale=None)
+                            ).properties(height=280, width=280).interactive()
+
+                        text = base.mark_text(radius=127, size=10).encode(text="Status:N")
+                        st.altair_chart(base + text, use_container_width=True)
+
+                colLArcs, colArcs1, colArcs2, colRArcs = st.columns([1, 4, 4, 1])
+                with colArcs1:
+                    ags23 = st.checkbox('Agustus 2023', value=False)
+                    if ags23:
+                        base = alt.Chart(df2).mark_arc(innerRadius=45, outerRadius=90).encode(
+                            alt.Color("Persentase:O").legend(None),
+                                alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
+                                # color=alt.Color("max(Color)", scale=None)
+                            ).properties(height=280, width=280).interactive()
+                        text = base.mark_text(radius=127, size=10).encode(text="Status:N")
+                        st.altair_chart(base + text, use_container_width=True)
+
+                with colArcs2:
+                    des23 = st.checkbox('Desember 2023', value=False)
+                    if des23:
+                       base = alt.Chart(df3).mark_arc(innerRadius=45, outerRadius=90).encode(
+                              alt.Color("Persentase:O").legend(None),
+                              alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
+                                    # color=alt.Color("max(Color)", scale=None)
+                            ).properties(height=280, width=280).interactive()
+                       text = base.mark_text(radius=127, size=10).encode(text="Status:N")
+                       st.altair_chart(base + text, use_container_width=True)
+
         #
         # highlight1 = bars.mark_bar(color="blue", opacity=0.2).encode(
         #     y2=alt.Y2(datum=threshold1)
@@ -338,6 +368,22 @@ with ((main_cl)):
         with st.expander("Tabel Indeks Standar Pencemar Udara"):
             st.image("img/kategori_ispu.png")
 
+        with st.expander("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK"):
+            colmat1, colmat2, colmat3 = st.columns(3)
+            with colmat1:
+                st.image("img/hs_2018.png")
+            with colmat2:
+                st.image("img/hs_2019.png")
+            with colmat3:
+                st.image("img/hs_2020.png")
+            colmat4, colmat5, colmat6 = st.columns(3)
+            with colmat4:
+                st.image("img/hs_2021.png")
+            with colmat5:
+                st.image("img/hs_2022.png")
+            with colmat6:
+                st.image("img/hs_2023.png")
+
         with st.expander("Analisis ISPU"):
             st.write("Analisis ISPU fokus pada PM 2.5 yang merupakan partikel"
                      " pencemar paling berpengaruh"
@@ -352,11 +398,11 @@ with ((main_cl)):
                 "Paparan seorang ibu terhadap PM2.5 selama kehamilannya meningkatkan risiko kelahiran prematur, \n"
                 " berat badan lahir rendah, dan lahir mati.")
             st.write("Dari diagram di atas dapat kita lihat di Kota Palembang pada Bulan Oktober 2023, mayoritas status pencemaran udara berada di tingkat Tidak Sehat, "
-                     "bahkan ada 4 hari di bulan tersebut status pencemaran berada di tingkat Sangat Tidak Sehat, "
-                     "yang dapat membahayakan kondisi kesehatan manusia, terutama anak-anak."
-                     "Salah satu penyebab kondisi tersebut besar kemungkinan "
-                     "adalah kabut asap akibat kebakaran hutan lahan yang banyak terjadi selama Bulan Oktober 2023 tersebut yang merupakan puncak musim El Nino tahun 2023."
-                     "berikut ini kita bisa lihat analisa korelasi Jarak Rata2 Titik Kebakaran Hutan di sekitar Palembang, Presipitasi,"
+                     "bahkan ada 5 hari di bulan tersebut status pencemaran berada di tingkat Sangat Tidak Sehat, "
+                     "yang dapat membahayakan kondisi kesehatan manusia, sangat berisiko terhadap masa depan anak-anak."
+                     "Melalui perbandingan antara bulan Oktober 2023 yang menurut Data Matrix Sipongi KLHK di atas merupakan masa puncak terjadinya Kebakaran Hutan Lahan (Karhutla) tahun 2023, dengan saat setahun sebelumnya di Oktober 2022, dengan saat Karhutla tahun 2023 belum mencapai puncak di bulan Agustus, dengan saat Karhutla Tahun 2023 menurun di bulan Desember, "
+                     "diperkuat dengan berita di media massa tentang kritikalnya kondisi kabut asap di Bulan OKtober 2023 tersebut, maka dapat dikatakan kondisi kabut asap akibat Karhutla merupakan salah satu penyebab utama memburuknya status ISPU PM 2.5 tersebut."
+                     "Selain diagram di atas berikut ini kita bisa lihat analisa korelasi Jarak Rata2 Titik Kebakaran Hutan di sekitar Palembang, Presipitasi,"
                      "Kecapatan Angin, Temperatur dan Kecerahan Hotspot.")
 
 
@@ -543,12 +589,12 @@ with st.container(border=True):
         st.write("Mengingat kepentingan tersebut di atas maka perlu dilakukan perlindungan bagi anak-anak dari bahaya pencemaran udara yang umumnya dimulai pukul 7 pagi di "
                  "saat anak-anak umumnya akan memulai aktivitas belajarnya,"
                  "saat ketika kendaraan bermotor mulai memenuhi jalanan dan apalagi ketika di saat yang bersamaan terjadi paparan kabut asap akibat kebakan hutan lahan."
-                 "Untuk mengantisipasi paparan pencemaran udara sangat dianjurkan anak-anak tetap memakai masker, atau jika status udara menjadi tidak sehat bahkan berbahaya, tidak memungkinkan beraktivitas di luar ruangan "
+                 "Untuk mengantisipasi paparan pencemaran udara sangat dianjurkan anak-anak tetap memakai masker, atau jika status udara menjadi sangat tidak sehat bahkan berbahaya, tidak memungkinkan beraktivitas di luar ruangan "
                  "maka diberlakukanlah aktivitas sekolah daring. Selain itu pemerintah juga harus bertekad dan mengerahkan segala sumber daya untuk segera melakukan pemadaman kebakaran hutan lahan"
                  "Selain itu yang paling penting perlu dilakukan langkah pencegahan, menggunakan sumber daya  yang tersedia untuk meng-edukasi masyarakat dan membuat payung-payung "
                  "hukum yang lengkap dan detail yang untuk mencegah terjadinya kebakaran hutan lahan baik yang disengaja maupun tidak disengaja (99% disengajakan oleh manusia menurut BNPB), "
                  "serta kebijakan lain dalam upaya mendatangkan udara yang bersih di wilayah tersebut."
-                 "Sehingga paparan pencemaran udara pada anak-anak jauh lebih sedikit, akan meningkatkan kesehatan dan kecerdasan dari Generasi Masa Depan Indonesia. ")
+                 "Sehingga paparan pencemaran udara pada anak-anak jauh menurun, sehingga meningkatkan kesehatan dan kecerdasan dari Generasi Masa Depan Indonesia. ")
 
 
 with st.container(border=True):
