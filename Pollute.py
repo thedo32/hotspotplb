@@ -276,7 +276,7 @@ with ((main_cl)):
                     # color=alt.Color("max(Color)", scale=None)
                             ).properties(height=350, width=350).interactive()
 
-                        text = base.mark_text(radius=165, size=10).encode(text="Status:N")
+                        text = base.mark_text(radius=162, size=10).encode(text="Status:N")
                         st.altair_chart(base + text, use_container_width=True)
 
                 with colArc2:
