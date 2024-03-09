@@ -270,13 +270,13 @@ with ((main_cl)):
                 with colArc1:
                     okt23 = st.checkbox('Oktober 2023',value=True)
                     if okt23:
-                        base = alt.Chart(df0).mark_arc(innerRadius=60, outerRadius=115).encode(
+                        base = alt.Chart(df0).mark_arc(innerRadius=57, outerRadius=115).encode(
                         alt.Color("Persentase:O").legend(None),
                               alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                     # color=alt.Color("max(Color)", scale=None)
                             ).properties(height=350, width=350).interactive()
 
-                        text = base.mark_text(radius=155, size=10).encode(text="Status:N")
+                        text = base.mark_text(radius=152, size=10).encode(text="Status:N")
                         st.altair_chart(base + text, use_container_width=True)
 
                 with colArc2:
