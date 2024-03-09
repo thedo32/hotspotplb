@@ -266,7 +266,7 @@ with ((main_cl)):
                         ).properties(height=400, width=800).interactive()
                         st.altair_chart(bars)
             with tabArc:
-                colLArc, colArc1, colArc2, colRArc = st.columns([1, 5, 5, 1])
+                colLArc, colArc1, colArc2, colRArc = st.columns([1, 7, 7, 1])
                 with colArc1:
                     okt23 = st.checkbox('Oktober 2023',value=True)
                     if okt23:
