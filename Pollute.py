@@ -247,7 +247,7 @@ with ((main_cl)):
         with st.container(border=True):
             tabBar, tabArc = st.tabs(['Status ISPU PM 2.5', 'Persentase'])
             with tabBar:
-                colLBar, colBar, colRBar = st.columns([1,8, 1])
+                colLBar, colBar, colRBar = st.columns([1,12, 1])
                 with colBar:
                     banding = st.checkbox('Perbandingan', value=False)
                     if banding:
@@ -266,11 +266,11 @@ with ((main_cl)):
                         ).properties(height=400, width=800).interactive()
                         st.altair_chart(bars)
             with tabArc:
-                colLArc, colArc1, colArc2, colRArc = st.columns([1, 7, 7, 1])
+                colLArc, colArc1, colArc2, colRArc = st.columns([1, 9, 9, 1])
                 with colArc1:
                     okt23 = st.checkbox('Oktober 2023',value=True)
                     if okt23:
-                        base = alt.Chart(df0).mark_arc(innerRadius=57, outerRadius=115).encode(
+                        base = alt.Chart(df0).mark_arc(innerRadius=60, outerRadius=120).encode(
                         alt.Color("Persentase:O").legend(None),
                               alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                     # color=alt.Color("max(Color)", scale=None)
