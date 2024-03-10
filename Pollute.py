@@ -320,9 +320,6 @@ with (main_cl):
                        text = base.mark_text(radius=90, size=11).encode(text="Status:N")
                        st.altair_chart(base + text, use_container_width=True)
 
-
-            # base.mark_bar() + base.mark_text(align='left', size=13, dx=5)
-
         #
         # highlight1 = bars.mark_bar(color="blue", opacity=0.2).encode(
         #     y2=alt.Y2(datum=threshold1)
