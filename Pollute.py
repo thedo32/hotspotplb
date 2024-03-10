@@ -93,15 +93,15 @@ with st.container(border=True):
     col_hotspot, col_temp, col_presip = st.columns(3) #add three columns
 
     with col_hotspot:
-      st.metric("Hotspot Sumsel", value=format_big_number(sumselhs), delta=f'{format_big_number(hs_diff)}%')
+      st.metric("Hotspot Sumsel", value=format_big_number(sumselhs), delta=f'{format_big_number(hs_diff)}%', delta_color="off")
       st.write("% dari Hs Indonesia : " + str(sumselhs_pct) + "%")
 
     with col_temp:
-      st.metric("Temperatur Rata2", value=format_big_number(t_avg_now), delta=f'{t_diff:.2f}%')
+      st.metric("Temperatur Rata2", value=format_big_number(t_avg_now), delta=f'{t_diff:.2f}%',delta_color="off")
       st.write("Unit Pengukuran: Celcius")
 
     with  col_presip:
-      st.metric("Presipitasi Rata2", value=format_big_number(rr_avg_now), delta=f'{rr_diff:.2f}%')
+      st.metric("Presipitasi Rata2", value=format_big_number(rr_avg_now), delta=f'{rr_diff:.2f}%', delta_color="off")
       st.write( "Unit Pengukuran: mm/hari")
 
 left_cl, main_cl= st.columns([1,8])
@@ -262,10 +262,10 @@ with (main_cl):
                             align='left',
                             dx=3,
                             fontSize=12,
-                            color="#FFFFFF",
+                            color="#F0EDCF",
                         ).encode(
-                            # y=alt.X("Status", axis=alt.Axis(labels=False)),
-                            # x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
+                            y=alt.X("Status", axis=alt.Axis(labels=False)),
+                            x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
                             text=alt.Y("Text"),
                         )
 
