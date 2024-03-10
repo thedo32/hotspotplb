@@ -482,7 +482,7 @@ with (main_cl):
                         scatter = alt.Chart(data).mark_point(size=50).encode(
                             x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
                             y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
-                            color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
+                            color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='blues'), legend=alt.Legend(orient="bottom"))
                         ).interactive().properties(height=425)
 
                         st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
@@ -491,7 +491,7 @@ with (main_cl):
                         scatter = alt.Chart(data).mark_point(size=50).encode(
                             x=alt.X("Kecerahan_Channel_4:Q", title="Kecerahan Channel 4 (Kelvin)"),
                             y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
-                            color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
+                            color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='blues'), legend=alt.Legend(orient="bottom"))
                         ).interactive().properties(height=425)
 
                         st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
@@ -500,7 +500,7 @@ with (main_cl):
                         scatter = alt.Chart(data).mark_point(size=50).encode(
                             x=alt.X("Kecerahan_Channel_5:Q", title="Kecerahan Channel 5 (Kelvin)"),
                             y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
-                            color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom"))
+                            color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='blues'), legend=alt.Legend(orient="bottom"))
                         ).interactive().properties(height=425)
 
                         st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
@@ -539,7 +539,7 @@ with (main_cl):
                     scatter= alt.Chart(data).mark_point(size=50).encode(
                         x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
                         y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
-                        color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
+                        color=alt.Color("Temperatur:Q", scale=alt.Scale(scheme='blues'), legend=alt.Legend(orient="bottom") )
                     ).interactive().properties(height=425)
 
                     st.altair_chart(scatter, theme='streamlit',  use_container_width=True)
@@ -548,7 +548,7 @@ with (main_cl):
                     scatter = alt.Chart(data).mark_point(size=50).encode(
                         x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
                         y=alt.Y("Kecerahan_Channel_4:Q", title="Kecerahan Channel 4 (Kelvin)"),
-                        color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
+                        color=alt.Color("Kecerahan_Channel_4:Q", scale=alt.Scale(scheme='blues'), legend=alt.Legend(orient="bottom") )
                     ).interactive().properties(height=425)
 
                     st.altair_chart(scatter, use_container_width=True)
@@ -557,7 +557,7 @@ with (main_cl):
                     scatter= alt.Chart(data).mark_point(size=50).encode(
                         x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
                         y=alt.Y("Kecerahan_Channel_5:Q", title="Kecerahan Channel 5 (Kelvin)"),
-                        color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='reds'), legend=alt.Legend(orient="bottom") )
+                        color=alt.Color("Kecerahan_Channel_5:Q", scale=alt.Scale(scheme='blues'), legend=alt.Legend(orient="bottom") )
                     ).interactive().properties(height=425)
 
                     st.altair_chart(scatter, theme='streamlit', use_container_width=True)
