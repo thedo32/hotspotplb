@@ -1,0 +1,6 @@
+﻿Status,Keterangan,Color,Text
+I,1,#0E7735,"1 - 50 | BAIK | Tingkat mutu udara sangat baik, tidak memberikan efek negatif terhadap manusia, hewan dan tumbuhan"
+II,1,#4A74B4,"51 - 100 | SEDANG | Tingkat mutu udara masih dapat diterima pada kesehatan manusia, hewan dan tumbuhan"
+III,1,#ECC31E,"101 - 200 | TIDAK SEHAT | Tingkat mutu udara yang sangat merugikan pada manusia, hewan dan tumbuhan"
+IV,1,#CA0B22,201 - 300 | SANGAT TIDAK SEHAT | Tingkat mutu yang dapat meningkatkan risiko kesehatan pada sejumlah segmen populasi yang terpapar
+V,1,#000000,>=301 | BERBAHAYA | Tingkat mutu udara yang dapat merugikan kesehatan serius pada populasi dan perlu penanganan cepat

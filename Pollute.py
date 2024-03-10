@@ -119,23 +119,14 @@ with left_cl:
         """, unsafe_allow_html=True)
      st.markdown("<br>", unsafe_allow_html=True)
      with st.container(border=True):
-         #Create the gaza map
-         plt = px.scatter_mapbox(
-             mapbox_style="carto-darkmatter",
-             height=2200,
-             zoom=11.4,
-             center=dict(lat=31.35270801, lon=34.45848501)  # this will center on the point
-         )
-
-         st.plotly_chart(plt, use_container_width=True)
         # st.image("img/free_palestine.png")
-        # st.markdown("<br>", unsafe_allow_html=True)
-        # st.image("img/from_river.png")
+        st.markdown("<br>", unsafe_allow_html=True)
+        st.image("img/from_river.png")
      st.markdown("<br>", unsafe_allow_html=True)
      with st.container(border=True):
         st.markdown("<p style='text-align: left; color: #0B60B0;'>By: Jeffri Argon</p>", unsafe_allow_html=True)
 
-with ((main_cl)):
+with (main_cl):
     with st.container(border=True):
         with st.container(border=True):
             st.write("Menurut data [SIPONGI KLHK](%s)" % urlsipongi + " dan [FIRMS NASA](%s)" % urlfirms + " "
@@ -212,12 +203,13 @@ with ((main_cl)):
                 ],
             ))
 
-
+        #load dataframe
         df = pd.read_csv('data/max_hs_pl_palembang_distinct.csv')
         df0 = pd.read_csv('data/max_distinct_pm25_plb_oct_2023.csv')
         df1 = pd.read_csv('data/max_distinct_pm25_plb_oct_2022.csv')
         df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023.csv')
         df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
+        dfispu = pd.read_csv("data/ispu_table.csv")
 
         # data = pd.pivot_table(
         #     data=df,
@@ -259,60 +251,84 @@ with ((main_cl)):
                         ).properties(height=72, width=600).interactive(bind_x=True,bind_y=True)
                         st.altair_chart(bars)
                     else:
-                        bars = alt.Chart(df0).mark_bar(size=30).encode(
+                        bars = alt.Chart(df0).mark_bar(size=27).encode(
                             y="Status:O",
                             x=alt.X("count(Value):Q", title="Jumlah Hari"),
                             color=alt.Color("max(Color):N", scale=None)
-                        ).properties(height=400, width=800).interactive()
+                        ).properties(height=270, width=800).interactive()
                         st.altair_chart(bars)
+
+                    with st.expander("Tabel Status ISPU"):
+                        bars = alt.Chart(dfispu).mark_bar().encode(
+                            y=alt.X("Status"),
+                            x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
+                            color=alt.Color("Color:N", scale=None)
+                        )
+
+                        text = alt.Chart(dfispu).mark_text(
+                            align='left',
+                            dx=3,
+                            fontSize=13,
+                            color="#FFFFFF",
+                        ).encode(
+                            y=alt.X("Status", axis=alt.Axis(labels=False)),
+                            x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
+                            text=alt.Y("Text"),
+                        )
+
+                        st.altair_chart(bars + text, use_container_width=True)
+
             with tabArc:
                 colLArc, colArc1, colArc2, colRArc = st.columns([1, 9, 9, 1])
                 with colArc1:
                     okt23 = st.checkbox('Oktober 2023',value=True)
                     if okt23:
-                        base = alt.Chart(df0).mark_arc(innerRadius=60, outerRadius=120).encode(
+                        base = alt.Chart(df0).mark_arc(innerRadius=50, outerRadius=105).encode(
                         alt.Color("Persentase:O").legend(None),
                               alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                     # color=alt.Color("max(Color)", scale=None)
-                            ).properties(height=350, width=350).interactive()
+                            ).properties(height=300, width=300).interactive()
 
-                        text = base.mark_text(radius=152, size=10).encode(text="Status:N")
+                        text = base.mark_text(radius=150, size=13).encode(text="Status:N")
                         st.altair_chart(base + text, use_container_width=True)
 
                 with colArc2:
                      okt22 = st.checkbox('Oktober 2022', value=False)
                      if okt22:
-                        base = alt.Chart(df1).mark_arc(innerRadius=45, outerRadius=90).encode(
+                        base = alt.Chart(df1).mark_arc(innerRadius=30, outerRadius=70).encode(
                             alt.Color("Persentase:O").legend(None),
                                 alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                                 # color=alt.Color("max(Color)", scale=None)
-                            ).properties(height=280, width=280).interactive()
+                            ).properties(height=210, width=210).interactive()
 
-                        text = base.mark_text(radius=127, size=10).encode(text="Status:N")
+                        text = base.mark_text(radius=90, size=11).encode(text="Status:N")
                         st.altair_chart(base + text, use_container_width=True)
 
                 colLArcs, colArcs1, colArcs2, colRArcs = st.columns([1, 4, 4, 1])
                 with colArcs1:
                     ags23 = st.checkbox('Agustus 2023', value=False)
                     if ags23:
-                        base = alt.Chart(df2).mark_arc(innerRadius=45, outerRadius=90).encode(
+                        base = alt.Chart(df2).mark_arc(innerRadius=30, outerRadius=70).encode(
                             alt.Color("Persentase:O").legend(None),
                                 alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                                 # color=alt.Color("max(Color)", scale=None)
-                            ).properties(height=280, width=280).interactive()
-                        text = base.mark_text(radius=127, size=10).encode(text="Status:N")
+                            ).properties(height=210, width=210).interactive()
+                        text = base.mark_text(radius=90, size=11).encode(text="Status:N")
                         st.altair_chart(base + text, use_container_width=True)
 
                 with colArcs2:
                     des23 = st.checkbox('Desember 2023', value=False)
                     if des23:
-                       base = alt.Chart(df3).mark_arc(innerRadius=45, outerRadius=90).encode(
+                       base = alt.Chart(df3).mark_arc(innerRadius=30, outerRadius=70).encode(
                               alt.Color("Persentase:O").legend(None),
                               alt.Theta("count(Value):Q", title="Jumlah Hari").stack(True),
                                     # color=alt.Color("max(Color)", scale=None)
-                            ).properties(height=280, width=280).interactive()
-                       text = base.mark_text(radius=127, size=10).encode(text="Status:N")
+                            ).properties(height=210, width=210).interactive()
+                       text = base.mark_text(radius=90, size=11).encode(text="Status:N")
                        st.altair_chart(base + text, use_container_width=True)
+
+
+            # base.mark_bar() + base.mark_text(align='left', size=13, dx=5)
 
         #
         # highlight1 = bars.mark_bar(color="blue", opacity=0.2).encode(
@@ -364,9 +380,6 @@ with ((main_cl)):
         #
         # st.altair_chart(bars + highlight1 + highlight2 + highlight3 + rule1 + label1 +rule2 + label2, use_container_width=True)
 
-
-        with st.expander("Tabel Indeks Standar Pencemar Udara"):
-            st.image("img/kategori_ispu.png")
 
         with st.expander("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK"):
             colmat1, colmat2, colmat3 = st.columns(3)
