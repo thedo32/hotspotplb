@@ -197,7 +197,7 @@ with (main_cl):
                         'ScatterplotLayer',
                         data=firms_pl,
                         get_position='[lon, lat]',
-                        get_color='[200, 30, 0, 200]',
+                        get_color='[91, 163, 207, 200]',
                         get_radius=300,
                     ),
                 ],
@@ -211,14 +211,7 @@ with (main_cl):
         df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
         dfispu = pd.read_csv("data/ispu_table.csv")
 
-        # data = pd.pivot_table(
-        #     data=df,
-        #     index=['Remarks'],
-        #     aggfunc={
-        #         'Value':pd.Series.nunique,
-        #         'Tanggal':pd.Series.nunique,
-        #     }
-        # ).reset_index()
+
         with st.expander("Analisis Peta"):
             st.write("Dapat dilihat disekitar Kota Palembang terdapat banyak hotspot,"
                      "juga kalau kita melihat ke wilayah propinsi, sebaran hotspot terdapat lebih banyak di "
@@ -239,7 +232,7 @@ with (main_cl):
         with st.container(border=True):
             tabBar, tabArc = st.tabs(['Status ISPU PM 2.5', 'Persentase'])
             with tabBar:
-                colLBar, colBar, colRBar = st.columns([1,12, 1])
+                colLBar, colBar, colRBar = st.columns([1,20, 1])
                 with colBar:
                     banding = st.checkbox('Perbandingan', value=False)
                     if banding:
@@ -260,23 +253,23 @@ with (main_cl):
 
                     with st.expander("Tabel Status ISPU"):
                         bars = alt.Chart(dfispu).mark_bar().encode(
-                            y=alt.X("Status"),
+                            y=alt.X("Status", axis=alt.Axis(labels=False)),
                             x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
                             color=alt.Color("Color:N", scale=None)
-                        )
+                        ).properties(width=720)
 
                         text = alt.Chart(dfispu).mark_text(
                             align='left',
                             dx=3,
-                            fontSize=13,
+                            fontSize=12,
                             color="#FFFFFF",
                         ).encode(
-                            y=alt.X("Status", axis=alt.Axis(labels=False)),
-                            x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
+                            # y=alt.X("Status", axis=alt.Axis(labels=False)),
+                            # x=alt.Y("Keterangan", axis=alt.Axis(labels=False)),
                             text=alt.Y("Text"),
                         )
 
-                        st.altair_chart(bars + text, use_container_width=True)
+                        st.altair_chart(bars + text)
 
             with tabArc:
                 colLArc, colArc1, colArc2, colRArc = st.columns([1, 9, 9, 1])
@@ -289,7 +282,7 @@ with (main_cl):
                     # color=alt.Color("max(Color)", scale=None)
                             ).properties(height=300, width=300).interactive()
 
-                        text = base.mark_text(radius=150, size=13).encode(text="Status:N")
+                        text = base.mark_text(radius=148, size=12).encode(text="Status:N")
                         st.altair_chart(base + text, use_container_width=True)
 
                 with colArc2:
@@ -645,47 +638,39 @@ with main_cl:
                         'ScatterplotLayer',
                         data=firms,
                         get_position='[lon, lat]',
-                        get_color='[200, 30, 0, 200]',
+                        get_color='[91, 163, 207, 200]',
                         get_radius=300,
                     ),
                 ],
             ))
+
 
 
         with tab3a:
-            df3 = gpd.read_file('data/idn.geojson')
-            df3['lon'] = df3.geometry.x  # extract longitude from geometry
-            df3['lat'] = df3.geometry.y  # extract latitude from geometry
-            df3 = df3[['lon', 'lat']]  # only keep longitude and latitude
+            df = pd.read_csv('data/idn.csv')
 
-            firms_idn = pd.DataFrame(
-                df3,
-                columns=['lat', 'lon'])
+            # Create the choropleth bubble map
+            fig = px.scatter_mapbox(
+                df,
+                lat="Latitude",
+                lon="Longitude",
+                size="Size",  # Bubble size based on the "count" attribute
+                mapbox_style="carto-darkmatter",  # Choose a suitable projection
+                labels={"Size":"Ukuran Hs/Jumlah Total Hs di Bubble Besar"},
+                # hover_name="prov",  # Display count on hover
+                color_discrete_sequence=["#5BA3CF"],  # Customize bubble color
+                height=600,
+                zoom=3.7,
+                center=dict(lat=-3.1940, lon=117.5540),  # this will center on the point
+            )
 
-            st.pydeck_chart(pdk.Deck(
-                map_provider='carto',
-                map_style='dark',
-                views=pdk.View(type="mapview", controller=True),
-                initial_view_state=pdk.ViewState(
-                    latitude=-3.1940,
-                    longitude=117.5540,
-                    zoom=3.7,
-                ),
-                layers=[
-                    pdk.Layer(
-                        'ScatterplotLayer',
-                        data=firms_idn,
-                        get_position='[lon, lat]',
-                        get_color='[200, 30, 0, 200]',
-                        get_radius=300,
-                    ),
-                ],
-            ))
+            # Show the map
+            st.plotly_chart(fig, use_container_width=True)
 
-            with tab3b:
-                df = pd.read_csv('data/idn_hs_by_prov.csv')
-                # Create the choropleth bubble map
-                fig = px.scatter_mapbox(
+        with tab3b:
+            df = pd.read_csv('data/idn_hs_by_prov.csv')
+            # Create the choropleth bubble map
+            fig = px.scatter_mapbox(
                     df,
                     lat="latitude",
                     lon="longitude",
@@ -693,14 +678,14 @@ with main_cl:
                     mapbox_style="carto-darkmatter",  # Choose a suitable projection
                     labels={"count": "Jumlah Hotspot"},
                     hover_name="prov",  # Display count on hover
-                    color_discrete_sequence=["red"],  # Customize bubble color
+                    color_discrete_sequence=["#5BA3CF"],  # Customize bubble color
                     height=600,
                     zoom=3.7,
                     center=dict(lat=-3.1940, lon=117.5540),  # this will center on the point
-                )
+                   )
 
-                # Show the map
-                st.plotly_chart(fig, use_container_width=True)
-                #st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
+            # Show the map
+            st.plotly_chart(fig, use_container_width=True)
+            #st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
 
 
