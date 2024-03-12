@@ -6,9 +6,8 @@ import altair as alt
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-
-
-
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 st.set_page_config(
     page_title = "Hotspot Kebakaran Lahan Hutan dan Polusi Udara",
@@ -42,7 +41,7 @@ firm_all = pd.read_csv('data/nasa_viirs_noaa_oct_2023.csv')
 firm_all_prev = pd.read_csv('data/nasa_viirs_noaa_oct_2022.csv')
 firm = pd.read_csv('data/hotspot_sumsel.csv')
 firm_prev = pd.read_csv('data/hotspot_sumsel_2022.csv')
-bmkg = pd.read_csv('data/curah_hujan_temp_plb.csv')
+bmkg = pd.read_csv('data/Presipitasi_temp_plb.csv')
 firmhs = len(firm_all.index)
 sumselhs =len(firm.index)
 firmhs_prev = len(firm_all_prev.index)
@@ -133,18 +132,35 @@ with (main_cl):
                       "pada bulan Oktober 2023, di wilayah Propinsi Sumatera Selatan yang mempunyai penduduk 8,6 juta jiwa (BPS 2022), "
                       "dan mempunyai metropolitan yang berkembang yakni Patungraya Agung yang berpenduduk 2,6 juta jiwa (BPS 2020), "
                       "khususnya Kota Palembang yang berpenduduk sekitar 1,7 juta jiwa (BPS 2022), "
-                      "terdapat hotspot terbanyak dari kejadian Bencana Kebakaran Hutan Lahan dibanding propinsi lain di Indonesia, yang diperparah oleh fenomena El Nino."
-                      "Penulis fokus melakukan analisis pada bulan oktober yang merupakan puncak dari musim El Nino Tahun 2023"
-                      "berdasarkan data historikal Sipongi sering terjadi puncak kebakaran hutan lahan di bulan oktober."
-                      "Selain itu juga karena normalnya musim penghujan di mulai bulan oktober, namun menurut data BMKG,  presipitasi sangat rendah di bulan Oktober 2023 tersebut. "
-                      "Kondisi ini mengakibatkan terpaparnya polusi kabut asap yang mempunyai risiko tinggi terhadap masyarakat, "
+                      "terdapat hotspot terbanyak dari kejadian Bencana Kebakaran Hutan Lahan dibanding propinsi lain di Indonesia, yang diperparah oleh fenomena El Nino. "
+                      "Penulis fokus melakukan analisa di Kota Palembang selain karena wikayah itu merupakan wilayah terpadat di Propinsi tersebut, juga karena untuk Data seperti Temperatur, Presipitasi, "
+                      "serta Kecepatan Angin karena data didapatkan dari BMKG yang Stasiun dan Akurasi Pengukurannya berada di sekitar Kota Palembang"    
+                      "Selain itu fokus analisis juga pada bulan oktober yang merupakan puncak dari musim El Nino Tahun 2023, "
+                      "berdasarkan data Temperatur yang tinggi, dan data Presipitasi yang rendah yang mana normalnya musim penghujan di mulai bulan oktober, "
+                      "namun menurut data BMKG,  presipitasi sangat rendah di bulan Oktober 2023 tersebut. "
+                      "Selain itu juga berdasarkan historikal Data Matrix Sipongi di mana sering terjadi puncak kebakaran hutan lahan di bulan oktober pada tahun terjadinya musim El Nino. "
+                      "Kondisi tersebut mengakibatkan terpaparnya polusi kabut asap yang mempunyai risiko tinggi terhadap masyarakat, "
                       "terutama pada kelompok rentan seperti anak-anak dan ibu hamil yang dapat mengancam Generasi Masa Depan")
             # expander for sipongi historical data
 
-
+            with st.expander("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK"):
+                colmat1, colmat2, colmat3 = st.columns(3)
+                with colmat1:
+                    st.image("img/hs_2018.png")
+                with colmat2:
+                    st.image("img/hs_2019.png")
+                with colmat3:
+                    st.image("img/hs_2020.png")
+                colmat4, colmat5, colmat6 = st.columns(3)
+                with colmat4:
+                    st.image("img/hs_2021.png")
+                with colmat5:
+                    st.image("img/hs_2022.png")
+                with colmat6:
+                    st.image("img/hs_2023.png")
 
             #links sumber bacaan
-            st.markdown("* Sumber Bacaan: [BNPB](%s)" % urlbnpb + ", "
+            st.markdown("* Sumber Bacaan Lebih Lanjut: [BNPB](%s)" % urlbnpb + ", "
                         "[Boston College](%s)" % urlboston + ", "
                         "[Nafas Indonesia](%s)" % urlnafas + ", "
                         "[OTC Digest](%s)" % urlotc + ", "                                                                                                                                                                                                                                                                       
@@ -153,7 +169,7 @@ with (main_cl):
                         "[Liputan 6 SCTV](%s)" % urlsctv, unsafe_allow_html=True)
 
 
-        st.markdown("<br>", unsafe_allow_html=True)
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.subheader('Peta Sebaran Hotspot Kebakaran Hutan Lahan Bulan Oktober 2023')
         # st.markdown("<br><h4 style='text-align:"
         #     " center; color: red;'>Peta Sebaran Hotspot Kebakaran Hutan Lahan Bulan Oktober 2023</h4>", unsafe_allow_html=True)
@@ -210,7 +226,7 @@ with (main_cl):
         df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023.csv')
         df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
         dfispu = pd.read_csv("data/ispu_table.csv")
-
+        
 
         with st.expander("Analisis Peta"):
             st.write("Dapat dilihat disekitar Kota Palembang terdapat banyak hotspot,"
@@ -220,10 +236,11 @@ with (main_cl):
                      "kemudian jika melihat peta Indonesia Bubble "
                      "di Sumatera Selatan terdapat 15.848 hotspot, terbanyak dibandingkan propinsi lain, "
                      "dan dibawahnya Kalimantan Tengah sebanyak 13.393 hotspot.")
-
+        
+        
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.subheader("Diagram Tingkat ISPU Pada Bulan Oktober 2023")
-
+        
         # threshold1 = 51.0
         # threshold2 = 101.0
         # threshold3 = 201.0
@@ -369,23 +386,7 @@ with (main_cl):
         # )
         #
         # st.altair_chart(bars + highlight1 + highlight2 + highlight3 + rule1 + label1 +rule2 + label2, use_container_width=True)
-
-
-        with st.expander("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK"):
-            colmat1, colmat2, colmat3 = st.columns(3)
-            with colmat1:
-                st.image("img/hs_2018.png")
-            with colmat2:
-                st.image("img/hs_2019.png")
-            with colmat3:
-                st.image("img/hs_2020.png")
-            colmat4, colmat5, colmat6 = st.columns(3)
-            with colmat4:
-                st.image("img/hs_2021.png")
-            with colmat5:
-                st.image("img/hs_2022.png")
-            with colmat6:
-                st.image("img/hs_2023.png")
+               
 
         with st.expander("Analisis ISPU"):
             st.write("Analisis ISPU fokus pada PM 2.5 yang merupakan partikel"
@@ -411,170 +412,120 @@ with (main_cl):
 
 
         #dataframe untuk korrelasi
-        df2 = pd.read_csv('data/pollute_plb_75_b.csv')
+        dfcorr = pd.read_csv('data/pollute_plb_heatmap.csv')
 
-        data = pd.pivot_table(
-            data=df2,
-            index=['Tanggal'.format(datetime)],
-            aggfunc={
-                'ISPU_PM_2_5':'max',
-                'PM2_5':'max',
-                'PM10':'max',
-                'Hotspot_harian':'count',
-                'Kecerahan_Channel_4': 'sum',
-                'Kecerahan_Channel_5': 'sum',
-                'Jarak':'mean',
-                'Temperatur':'mean',
-                'Curah_Hujan':'mean',
-                'Kecepatan_Angin':'mean'
-            }
-        ).reset_index()
+        # data = pd.pivot_table(
+        #     data=dfcorr,
+        #     index=['Tanggal'.format(datetime)],
+        #     aggfunc={
+        #         'ISPU_PM_2_5':'max',
+        #         'PM2_5':'max',
+        #         'PM10':'max',
+        #         'Jumlah_Hs':'count',
+        #         'Channel_4': 'sum',
+        #         'Channel_5': 'sum',
+        #         'Jarak':'mean',
+        #         'Temperatur':'mean',
+        #         'Presipitasi':'mean',
+        #         'Kec_Angin':'mean'
+        #     }
+        # ).reset_index()
 
         st.markdown("<br><br>", unsafe_allow_html=True)
         st.subheader("Korrelasi")
         # st.markdown("<br><br><h4 style='text-align: center; color: red;'>Korrelasi ✨ </h4>", unsafe_allow_html=True)
-        tab4, tab5 = st.tabs(['Korrelasi ISPU PM2.5', 'Korrelasi Hotspot'])
+
 
         #korrelasi pm2_5 dengan jarak, curah hujan, kecepatan angin
-        with tab4:
-            option = st.selectbox(
-                "Pilih Data yang ingin dikorrelasikan dengan ISPU PM 2.5 Harian",
-                ("Jarak dan ISPU PM 2.5", "Presipitasi dan ISPU PM 2.5", "Kecepatan  Angin dan ISPU PM 2.5",
-                 "Temperatur dan ISPU PM 2.5")
-            )
-            colL1, colM1, colR1 = st.columns([1, 10, 1])
-            with colM1:
 
-                if option=="Jarak dan ISPU PM 2.5":
-                        scatter= alt.Chart(data).mark_point(size=50).encode(
-                            x=alt.X("Jarak:Q", title="Jarak (km)"),
-                            y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+        option = st.selectbox(
+            "Pilih Data yang ingin dikorrelasikan dengan ISPU PM 2.5 Harian",
+            ("Data Heatmap Korrelasi", "Jumlah Hs dan ISPU PM 2.5", "Jarak dan ISPU PM 2.5",
+             "Presipitasi dan ISPU PM 2.5", "Kecepatan  Angin dan ISPU PM 2.5",
+            "Temperatur dan ISPU PM 2.5")
+        )
+
+        colL1, colM1, colR1 = st.columns([2, 10, 2])
+        heatL, heatC, healR = st.columns([3, 8, 3])
+        with colM1:
+            if option == "Data Heatmap Korrelasi":
+                with heatC:
+                    with st.container(border=True):
+                        heat = sns.heatmap(dfcorr.corr(),  cmap="Blues", annot=True)
+                        st.write(heat.get_figure())
+
+            if option=="Jumlah Hs dan ISPU PM 2.5":
+                    scatter= alt.Chart(dfcorr).mark_point(size=50).encode(
+                            x=alt.X("Jumlah_Hs:Q", title="Jumlah Hotspot"),
+                            y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
                         ).interactive().properties(height=425)
 
-                        st.altair_chart(scatter +
-                                        scatter.transform_regression('Jarak', 'ISPU_PM_2_5').
+                    st.altair_chart(scatter +
+                                        scatter.transform_regression('Jumlah_Hs', 'ISPU').
+                                        mark_line(size=3, color="red", opacity=0.3),
+                                        theme='streamlit', use_container_width=True)
+                
+            if option=="Jarak dan ISPU PM 2.5":
+                    scatter= alt.Chart(dfcorr).mark_point(size=50).encode(
+                            x=alt.X("Jarak:Q", title="Jarak Rata2(km)"),
+                            y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
+                        ).interactive().properties(height=425)
+
+                    st.altair_chart(scatter +
+                                        scatter.transform_regression('Jarak', 'ISPU').
                                         mark_line(size=3, color="red", opacity=0.3),
                                         theme='streamlit', use_container_width=True)
 
-                if option=="Presipitasi dan ISPU PM 2.5":
-                        scatter = alt.Chart(data).mark_point().encode(
-                            x=alt.X("Curah_Hujan:Q", title="Presipitasi (mm)"),
-                            y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+            if option=="Presipitasi dan ISPU PM 2.5":
+                    scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
+                            x=alt.X("Presipitasi:Q", title="Presipitasi (mm)"),
+                            y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
                             
                         ).interactive().properties(height=425)
 
-                        st.altair_chart(scatter +
-                                        scatter.transform_regression('Curah_Hujan', 'ISPU_PM_2_5').
+                    st.altair_chart(scatter +
+                                        scatter.transform_regression('Presipitasi', 'ISPU').
                                         mark_line(size=3, color="red", opacity=0.3),
                                         theme='streamlit', use_container_width=True)
 
-                if option=="Kecepatan  Angin dan ISPU PM 2.5":
-                        scatter = alt.Chart(data).mark_point().encode(
-                            x=alt.X("Kecepatan_Angin:Q", title="Kecepatan Angin (m/detik)"),
-                            y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+            if option=="Kecepatan  Angin dan ISPU PM 2.5":
+                    scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
+                            x=alt.X("Kec_Angin:Q", title="Kecepatan Angin (m/detik)"),
+                            y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
                         ).interactive().properties(height=425)
 
-                        st.altair_chart(scatter +
-                                        scatter.transform_regression('Kecepatan_Angin', 'ISPU_PM_2_5').
+                    st.altair_chart(scatter +
+                                        scatter.transform_regression('Kec_Angin', 'ISPU').
                                         mark_line(size=3, color="red", opacity=0.3),
                                         theme='streamlit', use_container_width=True)
 
-
-                #korrelasi dengan pm2_5 dengan temperatur, kecerahan channel 4 dan 5
-                if option=="Temperatur dan ISPU PM 2.5":
-                        scatter = alt.Chart(data).mark_point(size=50).encode(
-                            x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
-                            y=alt.Y("ISPU_PM_2_5:Q", title="ISPU PM 2.5"),
+            if option=="Temperatur dan ISPU PM 2.5":
+                    scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
+                            x=alt.X("Temper:Q", title="Temperatur (Celcius)"),
+                            y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
                         ).interactive().properties(height=425)
 
-                        st.altair_chart(scatter +
-                                        scatter.transform_regression('Temperatur', 'ISPU_PM_2_5').
+                    st.altair_chart(scatter +
+                                        scatter.transform_regression('Temper', 'ISPU').
                                         mark_line(size=3, color="red", opacity=0.3),
                                         theme='streamlit', use_container_width=True)
 
-        with tab5:
-            option2 = st.selectbox(
-                "Pilih Data yang ingin dikorrelasikan dengan Hotspot Harian",
-                ("Presipitasi dan Jumlah Hotspot", "Kecepatan Angin dan Jumlah Hotspot",
-                 "Temperatur dan Jumlah Hotspot", "Temperatur dan Kecerahan Hs Channel 4",
-                 "Temperatur dan Kecerahan Hs Channel 5")
-            )
-            # korrelasi jumlah hotspot dengan curah hujan, temperatur
-            colL2,colM2, colR2 = st.columns([1,10,1])
-            with colM2:
-
-                if option2 == "Presipitasi dan Jumlah Hotspot":
-                    scatter = alt.Chart(data).mark_point(size=50).encode(
-                        x=alt.X("Curah_Hujan:Q", title="Presipitasi (mm)"),
-                        y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
-                    ).interactive().properties(height=425)
-
-                    st.altair_chart(scatter +
-                                    scatter.transform_regression('Curah_Hujan', 'Hotspot_harian').
-                                    mark_line(size=3, color="red", opacity=0.3),
-                                    theme='streamlit', use_container_width=True)
-
-                if option2 == "Kecepatan Angin dan Jumlah Hotspot":
-                    scatter= alt.Chart(data).mark_point(size=50).encode(
-                        x=alt.X("Kecepatan_Angin:Q", title="Kecepatan Angin (m/detik)"),
-                        y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
-                    ).interactive().properties(height=425)
-
-                    st.altair_chart(scatter +
-                                    scatter.transform_regression('Kecepatan_Angin', 'Hotspot_harian').
-                                    mark_line(size=3, color="red", opacity=0.3),
-                                    theme='streamlit', use_container_width=True)
-
-
-                if option2 ==  "Temperatur dan Jumlah Hotspot":
-                    scatter= alt.Chart(data).mark_point(size=50).encode(
-                        x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
-                        y=alt.Y("Hotspot_harian:Q", title="Jumlah Hotspot Harian"),
-                    ).interactive().properties(height=425)
-
-                    st.altair_chart(scatter +
-                                    scatter.transform_regression('Temperatur', 'Hotspot_harian').
-                                    mark_line(size=3, color="red", opacity=0.3),
-                                    theme='streamlit', use_container_width=True)
-
-                if option2 ==  "Temperatur dan Kecerahan Hs Channel 4":
-                    scatter= alt.Chart(data).mark_point(size=50).encode(
-                        x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
-                        y=alt.Y("Kecerahan_Channel_4:Q", title="Kecerahan Hs Channel 4"),
-                    ).interactive().properties(height=425)
-
-                    st.altair_chart(scatter +
-                                    scatter.transform_regression('Temperatur', 'Kecerahan_Channel_4').
-                                    mark_line(size=3, color="red", opacity=0.3),
-                                    theme='streamlit',  use_container_width=True)
-
-                if option2 ==  "Temperatur dan Kecerahan Hs Channel 5":
-                    scatter= alt.Chart(data).mark_point(size=50).encode(
-                        x=alt.X("Temperatur:Q", title="Temperatur (Celcius)"),
-                        y=alt.Y("Kecerahan_Channel_5:Q", title="Kecerahan Hs Channel 5"),
-                    ).interactive().properties(height=425)
-
-                    st.altair_chart(scatter +
-                                    scatter.transform_regression('Temperatur', 'Kecerahan_Channel_5').
-                                    mark_line(size=3, color="red", opacity=0.3),
-                                    theme='streamlit', use_container_width=True)
 
 
         with st.expander("Analisis Korrelasi"):
-            st.write("Untuk Korrelasi ISPU PM 2.5, terdapat perbandingan cukup signifikan antara semakin dekat Jarak Rata2 Hotspot sekitar Palembang dengan menaiknya nilai ISPU PM 2.5."
-                     "Kemudian untuk Presipitasi terlihat juga kondisi keringnya cuaca dengan nilai ISPU PM 2.5 yang semakin tinggi."
-                     "Lalu untuk Kecepatan angin naiknya kecepatan angin di sekitar Kota Palembang tingkat nilai ISPU PM 2.5 akan menurun."
-                     "Begitu juga untuk Temperatur rata2 Kota Palembang serta korrelasinya dengan nilai ISPU PM 2.5 adalah jika temperatur udara semakin tinggi dan ISPU PM 2.5 semakin menurun"
-                     "Mengenai korrelasi kecepatan angin, temperatur dengan ISPU PM 2.5 menunjukkan hubungan yang negatif, sepertinya hal ini perlu diteliti lebih lanjut lagi dengan melihat berbagai "
-                     "Paramater Meteorologi dan Geofisika seperti Arah Angin Pada Kecepatan Maksimum, Arah Angin Terbanyak, Kelembapan, Lamanya Penyinaran Matahari."
-                     "Harapan penulis ke depan agar bisa menggali lebih dalam dan berdiskusi lagi dengan para ahli Meteorologi dan Geofisika terkait penelitian lebih lanjut tersebut.")
-            st.write(
-                "Untuk Korrelasi Hotspot, juga terdapat perbandingan terlihat juga kondisi keringnya cuaca dengan tingkat Jumlah Hotspot yang semakin banyak di sekitar Palembang."
-                "Kecepatan angin  juga menunjukkan hubungan positif dengan Jumlah Hotspot di wilayah sekitar."
-                "Begitu juga naiknya dengan Temperatur rata2 Kota Palembang dengan jumlah Hotspot, serta nilai Kecerahan Hotspot baik Channel 4 dan 5"
-                "menunjukkan semakin panasnya udara Kota Palembang dipengaruhi oleh naiknya jumlah serta kecerahan Hotspot di wilayah sekitar Kota Palembang")
-
-
+            st.write("Untuk Korrelasi ISPU PM 2.5, terdapat korelasi positif antara Jumlah Hotspot harian dengan nilai ISPU PM 2.5 harian, "
+                     "Kemudian hubungan negatif dengan Jarak Rata2 Hotspot semakin dekat,  di mana Jarak semakin tinggi nilai ISPU PM 2.5. "
+                     "Begitu juga korrelasi Presipitasi, berkurangnya presipitasi atau curah hujan, maka nilai ISPU PM 2.5 yang semakin tinggi. "
+                     "Demikian juga semakin turun kecepatan angin di sekitar Kota Palembang tingkat nilai ISPU PM 2.5 akan meningkat, "
+                     "hubungan negatif juga berlaku untuk Temperatur rata2 Kota Palembang dengan nilai ISPU PM 2.5 tersebut.")
+            st.write("Mengenai korrelasi kecepatan angin, temperatur dengan ISPU PM 2.5 menunjukkan hubungan yang negatif. "
+                     "sepertinya hal ini perlu diteliti lebih lanjut lagi, karena seperti disebutkan sebelumnya data didapatkan dari BMKG yang Stasiun dan Akurasi Pengukurannya berada di sekitar Kota Palembang, "
+                     "perlu didapatkan lagi data untuk daerah yang lebih luas dari sekitar Kota Palembang, "
+                     "selain  itu juga  menghitung paramater lain seperti Arah Angin Pada Kecepatan Maksimum, Arah Angin Terbanyak, Kelembapan, Lamanya Penyinaran Matahari."
+                     "Demikian juga kita bisa menganalisis lebih lanjut  mengenai korrelasi selain dengan ISPU PM 2.5, seperti yang tergambar dalam Diagram Heatmap. "
+                     "Harapan penulis ke depan baik untuk penulis atau siapapun yang tertarik dengan penelitian ini, bisa menggali lebih dalam dan berdiskusi "
+                     "lagi dengan para ahli Meteorologi Geofisika dan Klimatologi, "
+                     "serta dilengkapi dengan data Sosial Ekonomi masyarakat sekitar, untuk penelitian lebih lanjut.")
 
 with st.container(border=True):
     st.subheader("Insight")
@@ -603,8 +554,6 @@ with st.container(border=True):
                  "Sehingga paparan pencemaran udara pada anak-anak jauh menurun, sehingga meningkatkan kesehatan dan kecerdasan dari Generasi Masa Depan Indonesia. ")
 
 
-with st.container(border=True):
-    st.write("✨ Untuk Korrelasi: Data Jarak dan Kecerahan Hotspot dihitung dalam radius maksimal 75km Kota Palembang, menyesuaikan dengan Data Temperatur, Presipitasi, serta Kecepatan Angin, yang Stasiun dan Akurasi Pengukurannya Berada di Sekitar Kota Palembang")
 with st.container(border=True):
     st.markdown("* Sumber Data: [KemenLHK](%s)" % urllhk + ", "
              "[FIRMS NASA](%s)" % urlfirms + ", "

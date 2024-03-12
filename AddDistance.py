@@ -3,7 +3,7 @@ import geopy.distance
 
 
 
-dfirms = pd.read_csv("data/max_hs_pl_palembang.csv")
+dfirms = pd.read_csv("data/pollute_plb_hs_sumsel.csv")
 print(dfirms.head())
 print(dfirms.info())
 
@@ -17,4 +17,4 @@ for i in range(len(dfirms)):
     distance = geopy.distance.geodesic(coords_1, coords_2).km
     print(distance)
     df = pd.DataFrame({distance})
-    df.to_csv("data/jarak_max_hs_pl_palembang.csv", mode="a", index=False, header=False)
+    df.to_csv("data/pollute_plb_hs_sumsel_jarak.csv", mode="a", index=False, header=False)
