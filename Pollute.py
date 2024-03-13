@@ -229,6 +229,9 @@ with (main_cl):
         df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023.csv')
         df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
         dfispu = pd.read_csv("data/ispu_table.csv")
+
+        # load data for folium map
+        points = gpd.read_file('data/idns.geojson')
         
 
         with st.expander("Analisis Peta"):
@@ -606,9 +609,9 @@ with main_cl:
                 df,
                 lat="Latitude",
                 lon="Longitude",
-                size="Size",  # Bubble size based on the "count" attribute
+                size="Jumlah",  # Bubble size based on the "count" attribute
                 mapbox_style="carto-darkmatter",  # Choose a suitable projection
-                labels={"Size":"Ukuran Hs/Jumlah Total Hs di Bubble Besar"},
+                labels={"Jumlah":"Jumlah (Total di Bubble Besar x100)"},
                 # hover_name="prov",  # Display count on hover
                 color_discrete_sequence=["#5BA3CF"],  # Customize bubble color
                 height=600,
@@ -620,7 +623,8 @@ with main_cl:
             st.plotly_chart(fig, use_container_width=True)
 
         with tab1d:
-            if st.checkbox("Folium Map", value=False):
+            if st.checkbox("Interactive Folium Map - Slower", value=False):
+
                 callback = """\
                 function (row) {
                     var icon, marker;
@@ -632,13 +636,10 @@ with main_cl:
                 };
                 """
 
-                # load data
-                points = gpd.read_file('data/idns.geojson')
-
                 # draw map
                 m = folium.Map(location=[-3.1940, 117.5540],
                                tiles = 'cartodbdarkmatter',
-                               zoom_start=4.5, height=600, control_scale=True)
+                               zoom_start=2, control_scale=True)
 
                 # Get x and y coordinates for each point
                 # points_gjson = folium.features.GeoJson(points, name="Hotspot Indonesia")
@@ -652,13 +653,13 @@ with main_cl:
                 locations = list(zip(points["y"], points["x"]))
 
                 # Create a folium marker cluster
-                fast_marker_cluster = FastMarkerCluster(locations, callback=callback )
+                fast_marker_cluster = FastMarkerCluster(locations, callback=callback)
 
                 # Add marker cluster to map
                 fast_marker_cluster.add_to(m)
 
                 # draw maps
-                st_folium(m, use_container_width=True)
+                st_folium(m,height=450, use_container_width=True)
 
             else:
                 df = pd.read_csv('data/idn_hs_by_prov.csv')
