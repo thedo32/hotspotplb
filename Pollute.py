@@ -638,7 +638,7 @@ with main_cl:
                 # draw map
                 m = folium.Map(location=[-3.1940, 117.5540],
                                tiles = 'cartodbdarkmatter',
-                               zoom_start=4.2, height=600, control_scale=True)
+                               zoom_start=4.5, height=600, control_scale=True)
 
                 # Get x and y coordinates for each point
                 # points_gjson = folium.features.GeoJson(points, name="Hotspot Indonesia")
