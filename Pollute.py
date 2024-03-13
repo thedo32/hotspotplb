@@ -137,7 +137,7 @@ with (main_cl):
                       "khususnya Kota Palembang yang berpenduduk sekitar 1,7 juta jiwa (BPS 2022), "
                       "terdapat hotspot terbanyak dari kejadian Bencana Kebakaran Hutan Lahan dibanding propinsi lain di Indonesia, yang diperparah oleh fenomena El Nino. "
                       "Penulis fokus melakukan analisa di Kota Palembang selain karena wikayah itu merupakan wilayah terpadat di Propinsi tersebut, juga karena untuk Data seperti Temperatur, Presipitasi, "
-                      "serta Kecepatan Angin karena data didapatkan dari BMKG yang Stasiun dan Akurasi Pengukurannya berada di sekitar Kota Palembang."    
+                      "serta Kecepatan Angin karena data didapatkan dari BMKG yang Stasiun dan Akurasi Pengukurannya berada di sekitar Kota Palembang. "    
                       "Selain itu fokus analisis juga pada bulan oktober yang merupakan puncak dari musim El Nino Tahun 2023, "
                       "berdasarkan data Temperatur yang tinggi, dan data Presipitasi yang rendah yang mana normalnya musim penghujan di mulai bulan oktober, "
                       "namun menurut data BMKG,  presipitasi sangat rendah di bulan Oktober 2023 tersebut. "
