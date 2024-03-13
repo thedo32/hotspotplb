@@ -26,4 +26,4 @@ def csv_to_geojson(csv_file, geojson_file):
         geojson.dump(feature_collection, f, indent=2)
 
 # Replace 'input.csv' and 'output.geojson' with your file names
-csv_to_geojson('data/nasa_viirs_noaa_oct_2023_geo_only.csv', 'data/idn.geojson')
+csv_to_geojson('data/idns.csv', 'data/idns.geojson')

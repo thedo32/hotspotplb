@@ -1,13 +1,16 @@
 from datetime import datetime
+import folium
+import streamlit as st
 import geopandas as gpd
 import pydeck as pdk
 from streamlit_float import *
 import altair as alt
-import streamlit as st
 import pandas as pd
 import plotly.express as px
 import seaborn as sns
 import matplotlib.pyplot as plt
+from folium.plugins import FastMarkerCluster
+from streamlit_folium import st_folium
 
 st.set_page_config(
     page_title = "Hotspot Kebakaran Lahan Hutan dan Polusi Udara",
@@ -41,7 +44,7 @@ firm_all = pd.read_csv('data/nasa_viirs_noaa_oct_2023.csv')
 firm_all_prev = pd.read_csv('data/nasa_viirs_noaa_oct_2022.csv')
 firm = pd.read_csv('data/hotspot_sumsel.csv')
 firm_prev = pd.read_csv('data/hotspot_sumsel_2022.csv')
-bmkg = pd.read_csv('data/Presipitasi_temp_plb.csv')
+bmkg = pd.read_csv('data/presipitasi_temp_plb.csv')
 firmhs = len(firm_all.index)
 sumselhs =len(firm.index)
 firmhs_prev = len(firm_all_prev.index)
@@ -176,9 +179,9 @@ with (main_cl):
 
 
         #tab untuk peta 3 wilayah administrasi
-        tab1, tab2, tab3a, tab3b = st.tabs(['Kota Palembang', 'Provinsi Sumatera Selatan', 'Indonesia', 'Indonesia Bubble'])
+        tab1a, tab1b, tab1c, tab1d = st.tabs(['Kota Palembang', 'Provinsi Sumatera Selatan', 'Indonesia', 'Indonesia Bubble'])
 
-        with tab1:
+        with tab1a:
 
             sl1, sl2 = st.columns([1,4])
             with sl1:
@@ -562,7 +565,7 @@ with st.container(border=True):
 
 with main_cl:
 #tab lain utk peta diloading paling akhir
-        with tab2:
+        with tab1b:
             df2 = gpd.read_file('data/hostpot_sumsel.geojsonl.json')
             # st.write(df2.head(5))
             df2['lon'] = df2.geometry.x  # extract longitude from geometry
@@ -595,7 +598,7 @@ with main_cl:
 
 
 
-        with tab3a:
+        with tab1c:
             df = pd.read_csv('data/idn.csv')
 
             # Create the choropleth bubble map
@@ -616,10 +619,51 @@ with main_cl:
             # Show the map
             st.plotly_chart(fig, use_container_width=True)
 
-        with tab3b:
-            df = pd.read_csv('data/idn_hs_by_prov.csv')
-            # Create the choropleth bubble map
-            fig = px.scatter_mapbox(
+        with tab1d:
+            if st.checkbox("Folium Map", value=False):
+                callback = """\
+                function (row) {
+                    var icon, marker;
+                    icon = L.AwesomeMarkers.icon({
+                        icon: "map-marker",  markerColor: "blue"});
+                    marker = L.marker(new L.LatLng(row[0], row[1]));
+                    marker.setIcon(icon);
+                    return marker;
+                };
+                """
+
+                # load data
+                points = gpd.read_file('data/idns.geojson')
+
+                # draw map
+                m = folium.Map(location=[-3.1940, 117.5540],
+                               tiles = 'cartodbdarkmatter',
+                               zoom_start=4.7, height=600, control_scale=True)
+
+                # Get x and y coordinates for each point
+                # points_gjson = folium.features.GeoJson(points, name="Hotspot Indonesia")
+                # points_gjson.add_to(m)
+
+                # Get x and y coordinates for each point
+                points["x"] = points["geometry"].x
+                points["y"] = points["geometry"].y
+
+                # Create a list of coordinate pairs
+                locations = list(zip(points["y"], points["x"]))
+
+                # Create a folium marker cluster
+                fast_marker_cluster = FastMarkerCluster(locations, callback=callback )
+
+                # Add marker cluster to map
+                fast_marker_cluster.add_to(m)
+
+                # draw maps
+                st_folium(m, use_container_width=True)
+
+            else:
+                df = pd.read_csv('data/idn_hs_by_prov.csv')
+                # Create the choropleth bubble map
+                fig = px.scatter_mapbox(
                     df,
                     lat="latitude",
                     lon="longitude",
@@ -633,8 +677,9 @@ with main_cl:
                     center=dict(lat=-3.1940, lon=117.5540),  # this will center on the point
                    )
 
-            # Show the map
-            st.plotly_chart(fig, use_container_width=True)
-            #st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
+                # Show the map
+                st.plotly_chart(fig, use_container_width=True)
+                #st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
+
 
 
