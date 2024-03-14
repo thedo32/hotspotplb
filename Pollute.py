@@ -164,11 +164,11 @@ with (main_cl):
                 values = st.slider(
                 'Radius Sebaran Hotspot (Km)',value=50, min_value=25, max_value=75, step=25)
                 if values == 25:
-                    df1 = gpd.read_file('data/hotspot_plb_25.geojson')
+                    df1 = gpd.read_file('maps/palembang25.min.geojson')
                 if values == 50:
-                    df1 = gpd.read_file('data/hotspot_plb_50.geojson')
+                    df1 = gpd.read_file('maps/palembang50.min.geojson')
                 if values == 75:
-                    df1 = gpd.read_file('data/hotspot_plb_75.geojson')
+                    df1 = gpd.read_file('maps/palembang50.min.geojson')
 
             df1['lon'] = df1.geometry.x  # extract longitude from geometry
             df1['lat'] = df1.geometry.y  # extract latitude from geometry
@@ -475,7 +475,7 @@ with st.container(border=True):
 with main_cl:
 #tab lain utk peta diloading paling akhir
         with tab1b:
-            df2 = gpd.read_file('data/hostpot_sumsel.geojsonl.json')
+            df2 = gpd.read_file('maps/sumsel.min.geojson')
             # st.write(df2.head(5))
             df2['lon'] = df2.geometry.x  # extract longitude from geometry
             df2['lat'] = df2.geometry.y  # extract latitude from geometry
@@ -508,7 +508,7 @@ with main_cl:
 
 
         with tab1c:
-            df = pd.read_csv('data/idn.csv')
+            df = pd.read_csv('maps/idn.csv')
 
             # Create the choropleth bubble map
             fig = px.scatter_mapbox(
@@ -531,7 +531,7 @@ with main_cl:
         with tab1d:
             if st.checkbox("Interactive Folium Map - Slower", value=False):
                 # load data for folium map
-                points = gpd.read_file('data/idns.geojson')
+                points = gpd.read_file('maps/idns.min.geojson')
 
                 #set callback
                 callback = """\
@@ -571,7 +571,7 @@ with main_cl:
                 st_folium(m,height=450, use_container_width=True)
 
             else:
-                df = pd.read_csv('data/idn_hs_by_prov.csv')
+                df = pd.read_csv('maps/idn_hs_by_prov.csv')
                 # Create the choropleth bubble map
                 fig = px.scatter_mapbox(
                     df,
