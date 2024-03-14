@@ -1,4 +1,3 @@
-from datetime import datetime
 import folium
 import streamlit as st
 import geopandas as gpd
@@ -7,8 +6,6 @@ from streamlit_float import *
 import altair as alt
 import pandas as pd
 import plotly.express as px
-import seaborn as sns
-import matplotlib.pyplot as plt
 from folium.plugins import FastMarkerCluster
 from streamlit_folium import st_folium
 import fungsi as fu
