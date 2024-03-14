@@ -590,3 +590,4 @@ with main_cl:
                 # Show the map
                 st.plotly_chart(fig, use_container_width=True)
                 #st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
+
