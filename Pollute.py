@@ -1,13 +1,12 @@
-import folium
-import streamlit as st
-import geopandas as gpd
-import pydeck as pdk
-from streamlit_float import *
 import altair as alt
+import folium
 import pandas as pd
 import plotly.express as px
+import pydeck as pdk
 from folium.plugins import FastMarkerCluster
+from streamlit_float import *
 from streamlit_folium import st_folium
+
 import fungsi as fu
 
 st.set_page_config(
@@ -164,19 +163,12 @@ with (main_cl):
                 values = st.slider(
                 'Radius Sebaran Hotspot (Km)',value=50, min_value=25, max_value=75, step=25)
                 if values == 25:
-                    df1 = gpd.read_file('maps/palembang25.min.topojson')
+                    df1 = pd.read_csv('maps/palembang25.csv')
                 if values == 50:
-                    df1 = gpd.read_file('maps/palembang50.min.topojson')
+                    df1 = pd.read_csv('maps/palembang50.csv')
                 if values == 75:
-                    df1 = gpd.read_file('maps/palembang50.min.topojson')
+                    df1 = pd.read_csv('maps/palembang75.csv')
 
-            df1['lon'] = df1.geometry.x  # extract longitude from geometry
-            df1['lat'] = df1.geometry.y  # extract latitude from geometry
-            df1 = df1[['lon', 'lat']]  # only keep longitude and latitude
-
-            firms_pl = pd.DataFrame(
-                df1,
-                columns=['lat', 'lon'])
 
             st.pydeck_chart(pdk.Deck(
                 map_provider='carto',
@@ -190,8 +182,8 @@ with (main_cl):
                 layers=[
                     pdk.Layer(
                         'ScatterplotLayer',
-                        data=firms_pl,
-                        get_position='[lon, lat]',
+                        data=df1,
+                        get_position='[Longitude, Latitude]',
                         get_color='[91, 163, 207, 200]',
                         get_radius=300,
                     ),
@@ -475,15 +467,8 @@ with st.container(border=True):
 with main_cl:
 #tab lain utk peta diloading paling akhir
         with tab1b:
-            df2 = gpd.read_file('maps/sumsel.min.topojson')
-            # st.write(df2.head(5))
-            df2['lon'] = df2.geometry.x  # extract longitude from geometry
-            df2['lat'] = df2.geometry.y  # extract latitude from geometry
-            df2 = df2[['lon', 'lat']]  # only keep longitude and latitude
+            df2 = pd.read_csv('maps/sumsel.csv')
 
-            firms = pd.DataFrame(
-                df2,
-                columns=['lat', 'lon'])
 
             st.pydeck_chart(pdk.Deck(
                 map_provider='carto',
@@ -497,8 +482,8 @@ with main_cl:
                 layers=[
                     pdk.Layer(
                         'ScatterplotLayer',
-                        data=firms,
-                        get_position='[lon, lat]',
+                        data=df2,
+                        get_position='[Longitude, Latitude]',
                         get_color='[91, 163, 207, 200]',
                         get_radius=300,
                     ),
@@ -530,8 +515,6 @@ with main_cl:
 
         with tab1d:
             if st.checkbox("Interactive Folium Map - Slower", value=False):
-                # load data for folium map
-                points = gpd.read_file('maps/idns.min.topojson')
 
                 #set callback
                 callback = """\
@@ -555,20 +538,16 @@ with main_cl:
                 # points_gjson.add_to(m)
 
                 # Get x and y coordinates for each point
-                points["x"] = points["geometry"].x
-                points["y"] = points["geometry"].y
+                points = pd.read_csv('maps/idns.csv')
 
-                # Create a list of coordinate pairs
-                locations = list(zip(points["y"], points["x"]))
+                # Extract latitude and longitude columns
+                locations = list(zip(points["Latitude"], points["Longitude"]))
 
                 # Create a folium marker cluster
-                fast_marker_cluster = FastMarkerCluster(locations, callback=callback)
-
-                # Add marker cluster to map
+                fast_marker_cluster = FastMarkerCluster(locations, callback=callback, control=True)
                 fast_marker_cluster.add_to(m)
-
                 # draw maps
-                st_folium(m,height=450, use_container_width=True)
+                st_folium(m, height=450, use_container_width=True)
 
             else:
                 df = pd.read_csv('maps/idn_hs_by_prov.csv')
