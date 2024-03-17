@@ -516,19 +516,19 @@ with main_cl:
         with tab1d:
             if st.checkbox("Interactive Folium Map - Slower", value=False):
 
-                #set callback
+                # set callback
                 callback = """\
-                function (row) {
-                    var icon, marker;
-                    icon = L.AwesomeMarkers.icon({
-                        icon: "map-marker",  markerColor: "blue"});
-                    marker = L.marker(new L.LatLng(row[0], row[1]));
-                    marker.setIcon(icon);
-                    return marker;
-                };
-                """
+                            function (row) {
+                                    var icon, marker;
+                                    icon = L.AwesomeMarkers.icon({
+                                        icon: "fire", iconColor: "#86BCDC", iconSize: [5,5]});
+                                    marker = L.marker(new L.LatLng(row[0], row[1]) );
+                                    marker.setIcon(icon);
+                                    return marker;
+                            };
+                            """
 
-                # draw map
+                # draw basemap
                 m = folium.Map(location=[-3.1940, 117.5540],
                                tiles = 'cartodbdarkmatter',
                                zoom_start=2, control_scale=True)
@@ -546,7 +546,8 @@ with main_cl:
                 # Create a folium marker cluster
                 fast_marker_cluster = FastMarkerCluster(locations, callback=callback, control=True)
                 fast_marker_cluster.add_to(m)
-                # draw maps
+
+                # add maps to streamlit
                 st_folium(m, height=450, use_container_width=True)
 
             else:
