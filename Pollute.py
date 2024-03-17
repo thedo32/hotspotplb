@@ -544,7 +544,7 @@ with main_cl:
                 locations = list(zip(points["Latitude"], points["Longitude"]))
 
                 # Create a folium marker cluster
-                fast_marker_cluster = FastMarkerCluster(locations, popups="test", callback=callback, control=True)
+                fast_marker_cluster = FastMarkerCluster(locations, callback=callback, control=True)
                 fast_marker_cluster.add_to(m)
 
                 # add maps to streamlit
