@@ -31,7 +31,7 @@ m = folium.Map(location=[-3.1940, 117.5540],
 points = pd.read_csv('maps/idns.csv')
 
 # Extract latitude and longitude columns
-marker_cluster = MarkerCluster(callback=callback)
+marker_cluster = MarkerCluster()
 for _, row in points.iterrows():
        popup = f"Latitude: {row['Latitude']}<br>Longitude: {row['Longitude']}"
        folium.Marker([row['Latitude'], row['Longitude']], popup=popup).add_to(marker_cluster)
