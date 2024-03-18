@@ -4,6 +4,7 @@ import pandas as pd
 import plotly.express as px
 import pydeck as pdk
 from folium.plugins import FastMarkerCluster
+from folium.plugins import MarkerCluster
 from streamlit_float import *
 from streamlit_folium import st_folium
 from folium.plugins import LocateControl
@@ -148,8 +149,8 @@ with (main_cl):
         st.subheader('Peta Sebaran Hotspot Kebakaran Hutan Lahan Bulan Oktober 2023')
 
         # tab untuk peta 3 wilayah administrasi
-        tab1a, tab1b, tab1c, tab1d = st.tabs(
-            ['Kota Palembang', 'Provinsi Sumatera Selatan', 'Indonesia', 'Indonesia Bubble'])
+        tab1a, tab1b, tab1c, tab1d, tab1e = st.tabs(
+            ['Kota Palembang', 'Provinsi Sumatera Selatan', 'Indonesia', 'Indonesia Bubble', 'Indonesia Folium Popup'])
 
         with tab1a:
             sl1, sl2 = st.columns([1, 4])
@@ -561,4 +562,30 @@ with main_cl:
 
             # Show the map
             st.plotly_chart(fig, use_container_width=True)
-            # st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
+
+    with tab1e:
+        # draw basemap
+        m = folium.Map(location=[-3.1940, 117.5540],
+                       tiles='cartodbdarkmatter',
+                       zoom_start=2, control_scale=True)
+
+        if st.checkbox("Tampilkan Hotspot? Don't bother, make or order your coffee while loading", value=False):
+
+
+            # Get x and y coordinates for each point
+            # points_gjson = folium.features.GeoJson(points, name="Hotspot Indonesia")
+            # points_gjson.add_to(m)
+            # Get x and y coordinates for each point
+            points = pd.read_csv('maps/idns.csv')
+
+        # Extract latitude and longitude columns
+            marker_cluster = MarkerCluster()
+            for _, row in points.iterrows():
+                popup = f"Latitude: {row['Latitude']}<br>Longitude: {row['Longitude']}"
+                folium.Marker([row['Latitude'], row['Longitude']], popup=popup).add_to(marker_cluster)
+
+            marker_cluster.add_to(m)
+
+        # Add maps to streamlit
+        st_folium(m, height=450, use_container_width=True, key=123)
+        # st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
