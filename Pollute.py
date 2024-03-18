@@ -127,7 +127,7 @@ with (main_cl):
                                                                                                           "Pada kondisi normalnya musim penghujan di mulai bulan oktober, "
                                                                                                           "namun menurut data BMKG, :blue[Temperatur yang tinggi, Presipitasi sangat rendah] terjadi di bulan Oktober 2023. Juga Berdasarkan historikal Data Matrix Sipongi di mana "
                                                                                                           ":blue[sering terjadi puncak kebakaran hutan lahan di bulan oktober pada tahun terjadinya El Nino].<br> "
-                                                                                                          "Kondisi tersebut mengakibatkan terpaparnya polusi kabut asap yang meengakibatkan :blue[risiko kesehatan tinggi terhadap masyarakat, "
+                                                                                                          "Kondisi tersebut mengakibatkan terpaparnya polusi kabut asap yang mengakibatkan :blue[risiko kesehatan tinggi terhadap masyarakat, "
                                                                                                           "terutama pada kelompok rentan seperti anak-anak dan ibu hamil] yang dapat mengancam :blue[Generasi Masa Depan]",
                     unsafe_allow_html=True)
 
