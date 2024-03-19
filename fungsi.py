@@ -2,7 +2,9 @@ import pandas as pd
 import geopy.distance
 import csv
 import geojson
+import streamlit as st
 
+@st.cache_resource
 
 def addDistance (inputPath,outputPath) :
     dfloc = pd.read_csv(inputPath)
@@ -45,3 +47,20 @@ def format_big_number(num):
         return f"{num / 1e3:.1f} K"
     else:
         return f"{num:.2f}"
+
+def wilayah_admin(wilayah):
+    if wilayah == 25:
+        df1 = pd.read_csv('maps/palembang25.csv')
+        bubbletext = [{"text": "438", "lat": -3.47, "lon": 105.96}]
+    elif wilayah == 50:
+        df1 = pd.read_csv('maps/palembang50.csv')
+        bubbletext = [{"text": "2142", "lat": -3.47, "lon": 105.96}]
+    elif wilayah == 75:
+        df1 = pd.read_csv('maps/palembang75.csv')
+        bubbletext = [{"text": "6194", "lat": -3.47, "lon": 105.96}]
+    elif wilayah == "Sumsel":
+        df1 = pd.read_csv('maps/palembang75.csv')
+        bubbletext = [{"text": "6194", "lat": -3.47, "lon": 105.96}]
+    else:
+        df2 = pd.read_csv('maps/sumsel.csv')
+        bubbletext = [{"text": "15848", "lat": -3.47, "lon": 106.139}]
