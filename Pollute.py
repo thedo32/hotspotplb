@@ -575,7 +575,7 @@ with main_cl:
             fast_marker_cluster.add_to(m)
 
             # add maps to streamlit
-            st.write(st_folium(m, height=450, use_container_width=True))
+            st_folium(m, height=450, use_container_width=True)
 
         else:
             df = pd.read_csv('maps/idn_hs_by_prov.csv')
@@ -621,5 +621,5 @@ with main_cl:
             marker_cluster.add_to(m)
 
         # Add maps to streamlit
-        st.write(st_folium(m, height=450, use_container_width=True, key=123))
+        st_folium(m, height=450, use_container_width=True, key=123)
         # st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
