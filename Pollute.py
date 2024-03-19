@@ -159,10 +159,13 @@ with (main_cl):
                     'Radius Sebaran Hotspot (Km)', value=50, min_value=25, max_value=75, step=25)
                 if values == 25:
                     df1 = pd.read_csv('maps/palembang25.csv')
+                    bubbletext = [{"text": "438", "lat": -3.47, "lon": 105.96}]
                 if values == 50:
                     df1 = pd.read_csv('maps/palembang50.csv')
+                    bubbletext = [{"text": "2142", "lat": -3.47, "lon": 105.96}]
                 if values == 75:
                     df1 = pd.read_csv('maps/palembang75.csv')
+                    bubbletext = [{"text": "6194", "lat": -3.47, "lon": 105.96}]
 
             st.pydeck_chart(pdk.Deck(
                 map_provider='carto',
@@ -171,7 +174,7 @@ with (main_cl):
                 initial_view_state=pdk.ViewState(
                     latitude=-2.9831,
                     longitude=104.7527,
-                    zoom=9,
+                    zoom=8,
                 ),
                 layers=[
                     pdk.Layer(
@@ -180,6 +183,21 @@ with (main_cl):
                         get_position='[Longitude, Latitude]',
                         get_color='[91, 163, 207, 200]',
                         get_radius=300,
+                        pickable=True,
+                    ),
+                    pdk.Layer(
+                        'ScatterplotLayer',
+                        data=bubbletext,
+                        get_position='[lon, lat]',
+                        get_color='[91, 163, 207, 200]',
+                        get_radius=6000,
+                    ),
+                    pdk.Layer(
+                        'TextLayer',
+                        data=bubbletext,
+                        get_position='[lon, lat]',
+                        gettext='[text]',
+                        getSize=12,
                     ),
                 ],
             ))
@@ -459,6 +477,7 @@ with main_cl:
     # tab lain utk peta diloading paling akhir
     with tab1b:
         df2 = pd.read_csv('maps/sumsel.csv')
+        bubbletext = [{"text": "15848", "lat": -3.47, "lon": 106.139}]
 
         st.pydeck_chart(pdk.Deck(
             map_provider='carto',
@@ -476,6 +495,21 @@ with main_cl:
                     get_position='[Longitude, Latitude]',
                     get_color='[91, 163, 207, 200]',
                     get_radius=300,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    'ScatterplotLayer',
+                    data=bubbletext,
+                    get_position='[lon, lat]',
+                    get_color='[91, 163, 207, 200]',
+                    get_radius=12000,
+                ),
+                pdk.Layer(
+                    'TextLayer',
+                    data=bubbletext,
+                    get_position='[lon, lat]',
+                    gettext='[text]',
+                    getSize=12,
                 ),
             ],
         ))
@@ -541,7 +575,7 @@ with main_cl:
             fast_marker_cluster.add_to(m)
 
             # add maps to streamlit
-            st_folium(m, height=450, use_container_width=True)
+            st.write(st_folium(m, height=450, use_container_width=True))
 
         else:
             df = pd.read_csv('maps/idn_hs_by_prov.csv')
@@ -587,5 +621,5 @@ with main_cl:
             marker_cluster.add_to(m)
 
         # Add maps to streamlit
-        st_folium(m, height=450, use_container_width=True, key=123)
+        st.write(st_folium(m, height=450, use_container_width=True, key=123))
         # st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
