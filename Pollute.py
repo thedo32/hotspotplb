@@ -622,4 +622,5 @@ with main_cl:
 
         # Add maps to streamlit
         st_folium(m, height=450, use_container_width=True, key=123)
+
         # st.markdown("Sumber Data Peta: [Geojson](%s)" % urlbubble, unsafe_allow_html=True)
