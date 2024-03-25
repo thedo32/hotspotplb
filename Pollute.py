@@ -603,7 +603,7 @@ with main_cl:
                        tiles='cartodbdarkmatter',
                        zoom_start=2, control_scale=True)
 
-        if st.checkbox("Tampilkan Hotspot? Don't bother, make or order your coffee while loading", value=False):
+        if st.checkbox("Tampilkan Hotspot? Don't bother, make or order your coffee while loading", value=False, disabled=True):
 
 
             # Get x and y coordinates for each point
