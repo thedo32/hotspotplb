@@ -61,8 +61,8 @@ rr_now = bmkg['rr_avg'][bmkg['date'] == dt_now]
 rr_avg_prev = rr_prev.mean(axis=0)
 rr_avg_now = rr_now.mean(axis=0)
 
-st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Pengaruh Hotspot Di Musim El Nino Oktober 2023"
-            " <br> Terhadap Generasi Masa Depan<br><br></h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Influence of Hotspots on October 2023 of El Nino Season"
+             " <br> Toward Future Generations<br><br></h1>", unsafe_allow_html=True)
 
 # perbedaan hs tahun sebelumnya dan sekarang
 idn_diff = 100.0 * ((firmhs - firmhs_prev) / firmhs_prev)
@@ -70,7 +70,7 @@ hs_diff = 100.0 * ((sumselhs - sumselhs_prev) / sumselhs_prev)
 t_diff = 100.0 * ((t_avg_now - t_avg_prev) / t_avg_prev)
 rr_diff = 100.0 * ((rr_avg_now - rr_avg_prev) / t_avg_prev)
 
-st.subheader("Pendahuluan")
+st.subheader("Introduction")
 with st.container(border=True):
     col_idn, col_hotspot, col_temp, col_presip = st.columns(4)  # add four columns
 
@@ -79,29 +79,29 @@ with st.container(border=True):
                   delta_color="off")
 
     with col_hotspot:
-        st.metric("Hotspot Sumsel", value=fu.format_big_number(sumselhs), delta=f'{fu.format_big_number(hs_diff)}%',
+        st.metric("Hotspot South Sumatra Province", value=fu.format_big_number(sumselhs), delta=f'{fu.format_big_number(hs_diff)}%',
                   delta_color="off")
 
     with col_temp:
-        st.metric("Avg Temperatur Sumsel", value=fu.format_big_number(t_avg_now) + " C", delta=f'{t_diff:.2f}%',
+        st.metric("Avg Temperature South Sumatra Province", value=fu.format_big_number(t_avg_now) + " C", delta=f'{t_diff:.2f}%',
                   delta_color="off")
 
     with  col_presip:
-        st.metric("Avg Presipitasi Sumsel ", value=fu.format_big_number(rr_avg_now) + " mm", delta=f'{rr_diff:.2f}%',
+        st.metric("Avg Precipitation South Sumatra Province", value=fu.format_big_number(rr_avg_now) + " mm", delta=f'{rr_diff:.2f}%',
                   delta_color="off")
 
 left_cl, main_cl = st.columns([1, 8])
 with left_cl:
     containup = st.container()
     containup.float()
-    containup.markdown("[↗️⬆️↖️](#pendahuluan)", unsafe_allow_html=True)
+    containup.markdown("[↗️⬆️↖️](#introduction)", unsafe_allow_html=True)
     st.page_link("https://hotspotplb.streamlit.app/", label="Indonesia", icon="🏠")
     with st.container(border=True):
         st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
-        - [Peta](#peta-sebaran-hotspot-kebakaran-hutan-lahan-bulan-oktober-2023)
-        - [Diagram](#diagram-tingkat-ispu-pada-bulan-oktober-2023)
-        - [Korrelasi](#korrelasi)
+        - [Peta](#forest-fire-hotspot-propagation-map-october-2023)
+        - [Diagram](#pollution-standard-index-chart-october-2023)
+        - [Korrelasi](#correlation)
         - [Insight](#insight)
         """, unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
@@ -115,29 +115,29 @@ with left_cl:
 
 with (main_cl):
     with st.container(border=True):
-        st.markdown("**Latar Belakang:**<br>"
-                    "Menurut data [SIPONGI KLHK](%s)" % urlsipongi + " dan [FIRMS NASA](%s)" % urlfirms + " "
-                                                                                                          "pada bulan Oktober 2023, di wilayah :blue[Propinsi Sumatera Selatan] yang mempunyai penduduk 8,6 juta jiwa (BPS 2022), "
-                                                                                                          "dan mempunyai metropolitan yang berkembang yakni Patungraya Agung yang berpenduduk 2,6 juta jiwa (BPS 2020), "
-                                                                                                          "khususnya :blue[Kota Palembang yang berpenduduk sekitar 1,7 juta jiwa] (BPS 2022), "
-                                                                                                          "terdapat hotspot :blue[terbanyak] dari kejadian Bencana Kebakaran Hutan Lahan dibanding propinsi lain di Indonesia, yang diperparah oleh fenomena El Nino. <br>"
-                                                                                                          "**Fokus Analisis:**<br>"
-                                                                                                          "Penulis fokus melakukan analisa di Kota Palembang selain karena wilayah itu merupakan wilayah terpadat di Propinsi Sumatera Selatan, juga karena untuk Data seperti Temperatur, Presipitasi, "
-                                                                                                          "serta Kecepatan Angin didapatkan dari BMKG yang Stasiun dan Akurasi Pengukurannya berada di sekitar Kota Palembang. "
-                                                                                                          "Selain itu fokus analisis juga pada bulan oktober yang merupakan puncak dari musim El Nino Tahun 2023.<br> "
-                                                                                                          "**Puncak El Nino:**<br> "                                                                                      ""
-                                                                                                          "Pada kondisi normalnya musim penghujan di mulai bulan oktober, "
-                                                                                                          "namun menurut data BMKG, :blue[Temperatur yang tinggi, Presipitasi sangat rendah] terjadi di bulan Oktober 2023. Juga Berdasarkan historikal Data Matrix Sipongi di mana "
-                                                                                                          ":blue[sering terjadi puncak kebakaran hutan lahan di bulan oktober pada tahun terjadinya El Nino].<br> "
-                                                                                                          "Kondisi tersebut mengakibatkan terpaparnya polusi kabut asap yang mengakibatkan :blue[risiko kesehatan tinggi terhadap masyarakat, "
-                                                                                                          "terutama pada kelompok rentan seperti anak-anak dan ibu hamil] yang dapat mengancam :blue[Generasi Masa Depan]",
+        st.markdown("**Background:**<br>"
+                     "According to data from [SIPONGI KLHK](%s)" % urlsipongi + " and [FIRMS NASA](%s)" % urlfirms + " "
+                                                                                                           "in October 2023, in the :blue region [South Sumatra Province] which has a population of 8.6 million people (BPS 2022),"
+                                                                                                           "and has a developing metropolitan area, namely Paturaya Agung, which has a population of 2.6 million people (BPS 2020),"
+                                                                                                           "especially :blue [Palembang City with a population of around 1.7 million people] (BPS 2022),"
+                                                                                                           "There are :blue [most] hotspots of Land Forest Fire Disaster incidents compared to other provinces in Indonesia, which are exacerbated by the El Nino phenomenon. <br>"
+                                                                                                           "**Analysis Focus:**<br>"
+                                                                                                           "The author focuses on conducting analysis in Palembang City, not only because it is the most populous area in South Sumatra Province, but also because of data such as temperature and precipitation,"
+                                                                                                           "And wind speed is obtained from BMKG, whose stations and measurement accuracy are located around the city of Palembang."
+                                                                                                           "Apart from that, the focus of the analysis is also on October, which is the peak of the 2023 El Nino season.<br>"
+                                                                                                           "**El Nino Peak:**<br> " ""
+                                                                                                           "Under normal conditions the rainy season starts in October,"
+                                                                                                           "However, according to BMKG data, :blue [High temperature, very low precipitation] will occur in October 2023. Also based on historical Sipongi Data Matrix where"
+                                                                                                           ":blue[land forest fires often peak in October in the year El Nino occurs].<br> "
+                                                                                                           "This condition results in exposure to smoke haze pollution which results in :blue [high health risks to the community,"
+                                                                                                           "especially in vulnerable groups such as children and pregnant women] which can threaten :blue[Future Generation]",
                     unsafe_allow_html=True)
 
-        st.write("Data Matrix Hotspot Indonesia dari Situs Sipongi KLHK")
+        st.write("Indonesian Hotspot Matrix Data from the KLHK Sipongi Site")
         st.image('img/data_matrix_sipongi.png', use_column_width=True)
 
         # links sumber bacaan
-        st.caption("Sumber Bacaan Lebih Lanjut: [BNPB](%s)" % urlbnpb + ", "
+        st.caption("Further Reading: [BNPB](%s)" % urlbnpb + ", "
                                                                         "[Boston College](%s)" % urlboston + ", "
                                                                                                              "[Nafas Indonesia](%s)" % urlnafas + ", "
                                                                                                                                                   "[OTC Digest](%s)" % urlotc + ", "
@@ -147,7 +147,7 @@ with (main_cl):
                    unsafe_allow_html=True)
 
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.subheader('Peta Sebaran Hotspot Kebakaran Hutan Lahan Bulan Oktober 2023')
+        st.subheader('Forest Fire Hotspot Propagation Map October 2023')
 
         # tab untuk peta 3 wilayah administrasi
         tab1a, tab1b, tab1c, tab1d, tab1e = st.tabs(
@@ -157,7 +157,7 @@ with (main_cl):
             sl1, sl2 = st.columns([1, 4])
             with sl1:
                 values = st.slider(
-                    'Radius Sebaran Hotspot (Km)', value=50, min_value=25, max_value=75, step=25)
+                    'Hotspot Propagation Radius (Km)', value=50, min_value=25, max_value=75, step=25)
                 if values == 25:
                     df1 = pd.read_csv('maps/palembang25.csv')
                     bubbletext = [{"text": "438", "lat": -3.47, "lon": 105.96}]
@@ -210,23 +210,23 @@ with (main_cl):
         df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023.csv')
         df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
 
-        with st.expander("Analisis Peta"):
-            st.markdown("Dapat dilihat :blue[disekitar Kota Palembang terdapat banyak hotspot],"
-                        "juga kalau kita melihat ke wilayah Provinsi Sumatera Selatan, sebaran hotspot terdapat lebih banyak di "
-                        ":blue[bagian tenggara provinsi dan tidak jauh dari ibu kota provinsi tersebut]. "
-                        "Jika keseluruhan di peta Indonesia terdapat kecerahan hostpot hampir mirip di beberapa wilayah, "
-                        "kemudian jika melihat peta Indonesia Bubble "
-                        "di Sumatera Selatan terdapat 15.848 hotspot, :blue[terbanyak dibandingkan provinsi lain], "
-                        "dan dibawahnya Kalimantan Tengah sebanyak 13.393 hotspot, dari total 78.759 hoitspot di Indonesia.<br><br>",
+        with st.expander("Map Analysis"):
+            st.markdown("Can be seen: blue [around Palembang City there are many hotspots],"
+                         "Also, if we look at the South Sumatra Province region, there are more hotspots in the area."
+                         ":blue[southeast part of the province and not far from the provincial capital]."
+                         "If overall on the map of Indonesia, the hotspot brightness is almost the same in several regions,"
+                         "Then if you look at the Indonesia Bubble map"
+                         "In South Sumatra there are 15,848 hotspots, :blue [the most compared to other provinces],"
+                         "and below that, Central Kalimantan has 13,393 hotspots, out of a total of 78,759 hotspots in Indonesia.<br><br>",
                         unsafe_allow_html=True)
 
-        st.subheader("Diagram Tingkat ISPU Pada Bulan Oktober 2023")
+        st.subheader("Pollution Standard Index Chart October 2023")
 
-        tabBar, tabArc = st.tabs(['Status ISPU PM 2.5', 'Persentase'])
+        tabBar, tabArc = st.tabs(['Pollution Standard Status of PM 2.5', 'Persentase'])
         with tabBar:
             colLBar, colBar, colRBar = st.columns([1, 20, 1])
             with colBar:
-                banding = st.checkbox('Perbandingan', value=False)
+                banding = st.checkbox('Comparison', value=False)
                 if banding:
                     bars = alt.Chart(df).mark_bar(size=24).encode(
                         y="Status:O",
@@ -267,7 +267,7 @@ with (main_cl):
         with tabArc:
             colLArc, colArc1, colArc2, colRArc = st.columns([1, 9, 9, 1])
             with colArc1:
-                okt23 = st.checkbox('Oktober 2023', value=True)
+                okt23 = st.checkbox('October 2023', value=True)
                 if okt23:
                     base = alt.Chart(df0).mark_arc(innerRadius=50, outerRadius=105).encode(
                         alt.Color("Persentase:O").legend(None),
@@ -279,7 +279,7 @@ with (main_cl):
                     st.altair_chart(base + text, use_container_width=True)
 
             with colArc2:
-                okt22 = st.checkbox('Oktober 2022', value=False)
+                okt22 = st.checkbox('October 2022', value=False)
                 if okt22:
                     base = alt.Chart(df1).mark_arc(innerRadius=30, outerRadius=70).encode(
                         alt.Color("Persentase:O").legend(None),
@@ -292,7 +292,7 @@ with (main_cl):
 
             colLArcs, colArcs1, colArcs2, colRArcs = st.columns([1, 4, 4, 1])
             with colArcs1:
-                ags23 = st.checkbox('Agustus 2023', value=False)
+                ags23 = st.checkbox('August 2023', value=False)
                 if ags23:
                     base = alt.Chart(df2).mark_arc(innerRadius=30, outerRadius=70).encode(
                         alt.Color("Persentase:O").legend(None),
@@ -304,7 +304,7 @@ with (main_cl):
                     st.altair_chart(base + text, use_container_width=True)
 
             with colArcs2:
-                des23 = st.checkbox('Desember 2023', value=False)
+                des23 = st.checkbox('December 2023', value=False)
                 if des23:
                     base = alt.Chart(df3).mark_arc(innerRadius=30, outerRadius=70).encode(
                         alt.Color("Persentase:O").legend(None),
@@ -315,18 +315,18 @@ with (main_cl):
                     text = base.mark_text(radius=90, size=11).encode(text="Status:N")
                     st.altair_chart(base + text, use_container_width=True)
 
-        with st.expander("Analisis ISPU"):
-            st.write("Analisis ISPU fokus pada PM 2.5 yang merupakan partikel"
-                     " pencemar paling berpengaruh"
-                     " bagi kesehatan - [DitppuLHK](%s)" % url)
+        with st.expander("Pollution Standard Index Analysis"):
+            st.write("Pollution Standard Index analysis focuses on PM 2.5 which is particulate matter"
+                      "most influential polluter"
+                      " for health - [DitppuLHK](%s)" % url)
             st.markdown(
-                "Dari diagram di atas dapat kita lihat di Kota Palembang pada Bulan Oktober 2023, mayoritas status pencemaran udara berada di tingkat :blue[Tidak Sehat], "
-                "bahkan ada 5 hari di bulan tersebut status pencemaran berada di tingkat :blue[Sangat Tidak Sehat], "
-                "yang dapat membahayakan kondisi kesehatan manusia, sangat berisiko terhadap masa depan anak-anak."
-                "Melalui perbandingan antara bulan Oktober 2023 yang menurut Data Matrix Sipongi KLHK di atas merupakan masa puncak terjadinya Kebakaran Hutan Lahan (Karhutla) tahun 2023, dengan saat setahun sebelumnya di Oktober 2022, dengan saat Karhutla tahun 2023 belum mencapai puncak di bulan Agustus, dengan saat Karhutla Tahun 2023 menurun di bulan Desember, "
-                "diperkuat dengan berita di media massa tentang kritikalnya kondisi kabut asap di Bulan OKtober 2023 tersebut, maka dapat dikatakan :blue[kondisi kabut asap akibat Karhutla merupakan salah satu penyebab utama memburuknya status ISPU PM 2.5]."
-                "Selain diagram di atas berikut ini kita bisa lihat :blue[Analisa Korrelasi] Jumlah Hotspot, Jarak Rata2, Presipitasi,"
-                "Kecapatan Angin, serta Temperatur.<br><br>", unsafe_allow_html=True)
+                "From the diagram above we can see that in Palembang City in October 2023, the majority of air pollution status is at the: blue [Unhealthy] level,"
+                 "There were even 5 days in that month where the pollution status was at level: blue [Very Unhealthy],"
+                 "which can endanger human health conditions, greatly risking the future of children."
+                 "By comparing October 2023, which according to the Sipongi KLHK Data Matrix above is the peak period for the occurrence of Land Forest Fires (Karhutla) in 2023, with the previous year in October 2022, with the time when Forest and Land Fires in 2023 had not yet reached their peak in August, with The 2023 forest and land fires will decline in December,"
+                 "reinforced by the news in the mass media about the critical condition of the haze in October 2023, it can be said: blue [the haze condition due to forest and land fires is one of the main causes of the worsening ISPU PM 2.5 status]."
+                 "In addition to the diagram above, we can see below: blue [Correlation Analysis] Number of Hotspots, Average Distance, Precipitation,"
+                 "Wind Speed and Temperature.<br><br>", unsafe_allow_html=True)
 
         # dataframe untuk korrelasi
         dfcorr = pd.read_csv('data/pollute_plb_heatmap.csv')
@@ -349,26 +349,26 @@ with (main_cl):
         # ).reset_index()
 
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.subheader("Korrelasi")
+        st.subheader("Correlation")
 
         # korrelasi pm2_5 dengan jarak, curah hujan, kecepatan angin
 
         option = st.selectbox(
-            "Pilih Data yang ingin dikorrelasikan dengan ISPU PM 2.5 Harian",
-            ("Data Heatmap Korrelasi", "Jumlah Hs dan ISPU PM 2.5", "Jarak dan ISPU PM 2.5",
-             "Presipitasi dan ISPU PM 2.5", "Kecepatan  Angin dan ISPU PM 2.5",
-             "Temperatur dan ISPU PM 2.5")
+            "Select the data you want to correlate with the Daily ISPU PM 2.5",
+            ("Correlation Heatmap Data", "Number of Hs and ISPU PM 2.5", "Distance and ISPU PM 2.5",
+             "Precipitation and ISPU PM 2.5", "Wind Speed and ISPU PM 2.5",
+             "Temperature and ISPU PM 2.5")
         )
 
         colL1, colM1, colR1 = st.columns([2, 10, 2])
 
         with colM1:
-            if option == "Data Heatmap Korrelasi":
+            if option == "Correlation Data Heatmap":
                 # heat = sns.heatmap(dfcorr.corr(),  cmap="Blues", annot=True)
                 # st.write(heat.get_figure())
                 st.image('img/korrheatmap.png', use_column_width=True)
 
-            if option == "Jumlah Hs dan ISPU PM 2.5":
+            if option == "Hs amount and Pollution index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
                     x=alt.X("Jumlah_Hs:Q", title="Jumlah Hotspot"),
                     y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
@@ -379,7 +379,7 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Jarak dan ISPU PM 2.5":
+            if option == "Distance and Pollution index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
                     x=alt.X("Jarak:Q", title="Jarak Rata2(km)"),
                     y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
@@ -390,7 +390,7 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Presipitasi dan ISPU PM 2.5":
+            if option == "Precipitation and Pollution index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
                     x=alt.X("Presipitasi:Q", title="Presipitasi (mm)"),
                     y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
@@ -402,7 +402,7 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Kecepatan  Angin dan ISPU PM 2.5":
+            if option == "Win Speed and Pollution index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
                     x=alt.X("Kec_Angin:Q", title="Kecepatan Angin (m/detik)"),
                     y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
@@ -413,7 +413,7 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Temperatur dan ISPU PM 2.5":
+            if option == "Temperature and Pollution index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
                     x=alt.X("Temper:Q", title="Temperatur (Celcius)"),
                     y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
@@ -424,51 +424,51 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-        with st.expander("Analisis Korrelasi"):
+        with st.expander("Correlation Analysis"):
             st.markdown(
-                "Untuk Korrelasi ISPU PM 2.5, terdapat :blue[korelasi positif] antara Jumlah Hotspot harian dengan nilai ISPU PM 2.5 harian, "
-                "Kemudian :blue[korrelasi negatif] dengan Jarak Rata2 Hotspot di mana Jarak semakin tinggi nilai ISPU PM 2.5. "
-                "Begitu juga korrelasi Presipitasi, :blue[berkurangnya presipitasi atau curah hujan, maka nilai ISPU PM 2.5 semakin tinggi]. "
-                "Demikian juga semakin turun kecepatan angin di sekitar Kota Palembang tingkat nilai ISPU PM 2.5 akan meningkat, "
-                "hubungan negatif juga berlaku untuk Temperatur rata2 Kota Palembang dengan nilai ISPU PM 2.5 <br> "
-                "Mengenai korrelasi kecepatan angin, temperatur dengan ISPU PM 2.5 menunjukkan hubungan yang negatif. "
-                "sepertinya hal ini perlu diteliti lebih lanjut lagi, karena seperti disebutkan sebelumnya data didapatkan dari BMKG yang Stasiun dan Akurasi Pengukurannya berada di sekitar Kota Palembang, "
-                "perlu didapatkan lagi data untuk daerah yang lebih luas dari sekitar Kota Palembang, "
-                "selain  itu juga  menghitung paramater lain seperti Arah Angin Pada Kecepatan Maksimum, Arah Angin Terbanyak, Kelembapan, Lamanya Penyinaran Matahari."
-                "Demikian juga kita bisa menganalisis lebih lanjut  mengenai korrelasi selain dengan ISPU PM 2.5, seperti yang tergambar dalam Diagram Heatmap. "
-                "Harapan penulis ke depan baik untuk penulis atau siapapun yang tertarik dengan penelitian ini, bisa menggali lebih dalam dan berdiskusi "
-                "lagi dengan para ahli Meteorologi Geofisika dan Klimatologi, "
-                "serta dilengkapi dengan data Sosial Ekonomi masyarakat sekitar, untuk penelitian lebih lanjut.",
+                "For ISPU PM 2.5 Correlation, there is :blue [positive correlation] between the number of daily Hotspots and the daily ISPU PM 2.5 value,"
+                "Then: blue [negative correlation] with the Average Distance of Hotspots where the Distance is the higher the ISPU PM 2.5 value."
+                "Likewise, the correlation of Precipitation, :blue [reduced precipitation or rainfall, the higher the ISPU PM 2.5 value]."
+                "Similarly, as the wind speed decreases around Palembang City, the ISPU PM 2.5 value will increase,"
+                "The negative relationship also applies to the average temperature of Palembang City with an ISPU PM value of 2.5 <br> "
+                "Regarding the correlation of wind speed, temperature with ISPU PM 2.5 shows a negative relationship."
+                "It seems that this needs to be investigated further, because as previously mentioned the data was obtained from BMKG, whose stations and measurement accuracy are located around the city of Palembang,"
+                "more data needs to be obtained for a wider area than around Palembang City,"
+                "Apart from that, it also calculates other parameters such as Wind Direction at Maximum Speed, Most Wind Direction, Humidity, Length of Sunlight."
+                "Similarly, we can also analyze further regarding correlations other than ISPU PM 2.5, as depicted in the Heatmap Diagram."
+                "The author's hope for the future, both the author and anyone interested in this research, can dig deeper and discuss"
+                "again with Geophysical Meteorology and Climatology experts,"
+                "and equipped with socio-economic data of the surrounding community, for further research.",
                 unsafe_allow_html=True)
 
 with st.container(border=True):
     st.subheader("Insight")
-    with st.expander("Partikel Kecil Mengancam Generasi Masa Depan"):
+    with st.expander("Tiny Particles Threaten Future Generations"):
         st.markdown(
-            "Particulate Matter (PM2.5) adalah partikel udara yang berukuran lebih kecil dari atau sama dengan 2.5 µm (mikrometer). "
-            ":blue[PM2.5 berbahaya] bagi orang-orang dari segala usia bahkan sangat berbahaya bagi anak-anak. "
-            "Partikel kecil ini dapat menyebabkan banyak :blue[dampak negatif terhadap kesehatan "
-            "pada anak-anak termasuk asma, penurunan volume otak, disfungsi perilaku, ADHD, Autism Spectrum Disorder (ASD), "
-            "dan gangguan pertumbuhan paru-paru]. "
-            "Sangatlah penting untuk memikirkan kesehatan anak-anak kita ketika mengatasi polusi udara. Penyakit yang berhubungan dengan polusi udara akan "
-            "berdampak pada kesehatan anak-anak seumur hidup mereka."
-            "Paparan PM2.5 terhadap seorang :blue[ibu selama kehamilannya meningkatkan risiko kelahiran prematur, "
-            " berat badan lahir rendah, dan lahir mati].<br>"
-            "Pencemaran udara yang umumnya dimulai pukul 7 pagi di "
-            "saat anak-anak umumnya akan memulai aktivitas belajarnya, "
-            "saat ketika kendaraan bermotor mulai memenuhi jalanan dan apalagi ketika di saat yang bersamaan terjadi paparan kabut asap akibat kebakan hutan lahan.<br>"
-            "Mengingat kepentingan tersebut di atas maka perlu dilakukan perlindungan bagi anak-anak dari bahaya pencemaran udara:<ul>"
-            "<li>Untuk mengantisipasi paparan pencemaran udara sangat diperlukan :blue[anak-anak tetap memakai masker], atau jika status udara menjadi sangat tidak sehat bahkan berbahaya, tidak memungkinkan beraktivitas di luar ruangan "
-            "maka diberlakukanlah :blue[aktivitas sekolah daring].</li>"
-            "<li>Selain itu pemerintah juga harus bertekad dan mengerahkan segala sumber daya untuk segera melakukan pemadaman kebakaran hutan lahan </li>"
-            "<li>Kemudian yang paling penting dilakukan langkah pencegahan, menggunakan sumber daya  yang tersedia untuk :blue[meng-edukasi masyarakat dan membuat payung-payung "
-            "hukum] yang lengkap dan detail yang untuk :blue[mencegah terjadinya kebakaran hutan lahan] baik yang disengaja maupun tidak disengaja :blue[(99% disengajakan oleh manusia menurut BNPB)], "
-            "serta kebijakan lain dalam upaya mendatangkan udara yang bersih di wilayah tersebut.</li></ul> "
-            "Sehingga paparan pencemaran udara pada anak-anak jauh menurun, sehingga meningkatkan kesehatan dan kecerdasan dari :blue[Generasi Masa Depan Indonesia.] ",
+            "Particulate Matter (PM2.5) is air particles smaller than or equal to 2.5 µm (micrometers)."
+             ":blue[PM2.5 is dangerous] for people of all ages and is even very dangerous for children."
+             "These small particles can cause many :blue[negative impacts on health"
+             "in children including asthma, decreased brain volume, behavioral dysfunction, ADHD, Autism Spectrum Disorder (ASD),"
+             "and impaired lung growth]."
+             "It's important to think about our children's health when addressing air pollution. Diseases related to air pollution will"
+             "impacts children's health throughout their lives."
+             "A :blue[mother's exposure to PM2.5 during her pregnancy increases the risk of preterm birth,"
+             "low birth weight, and stillbirth].<br>"
+             "Air pollution generally starts at 7 am in the morning"
+             "when children generally start their learning activities,"
+             "when motorized vehicles start to fill the streets and especially when at the same time there is exposure to smoke haze due to forest land fires.<br>"
+             "Given the above interests, it is necessary to protect children from the dangers of air pollution:<ul>"
+             "<li>To anticipate exposure to air pollution, it is very necessary: blue [children still wear masks], or if the air status becomes very unhealthy or even dangerous, outdoor activities are not possible"
+             "then apply :blue[online school activities].</li>"
+             "<li>Apart from that, the government must also be determined and mobilize all resources to immediately extinguish land forest fires </li>"
+             "<li>Then the most important thing is to take preventive measures, using available resources to :blue[educate the public and make umbrellas"
+             "complete and detailed regulation :blue [to prevent the occurrence of land forest fires] whether intentional or unintentional :blue[(99% intentional by humans according to BNPB)],"
+             "as well as other policies in an effort to bring clean air to the region. </li></ul> "
+             "So that children's exposure to air pollution is greatly reduced, thereby improving the health and intelligence of :blue [Indonesia's Future Generation.] ",
             unsafe_allow_html=True)
 
 with st.container(border=True):
-    st.caption("Sumber Data: [KemenLHK](%s)" % urllhk + ", "
+    st.caption("Data Source: [KemenLHK](%s)" % urllhk + ", "
                                                         "[FIRMS NASA](%s)" % urlfirms + ", "
                                                                                         "[Open Weather Map](%s)" % urlopenwea + ", "
                                                                                                                                 "[BMKG](%s)" % urlbmkg,
@@ -604,7 +604,7 @@ with main_cl:
                        tiles='cartodbdarkmatter',
                        zoom_start=2, control_scale=True)
 
-        if st.checkbox("Tampilkan Hotspot? Don't bother, make or order your coffee while loading", value=False, disabled=True):
+        if st.checkbox("Show Hotspot? Don't bother, make or order your coffee while loading", value=False, disabled=True):
 
 
             # Get x and y coordinates for each point
