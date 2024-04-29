@@ -12,10 +12,10 @@ from folium.plugins import LocateControl
 import fungsi as fu
 
 st.set_page_config(
-    page_title="Hotspot Kebakaran Lahan Hutan dan Polusi Udara",
+    page_title="Forest Fire Hotspots and Air Pollution",
     page_icon="fishtail.png",
     layout="wide",
-    menu_items={"About": """##### Pengaruh Hotspot Di Musim El Nino Oktober 2023 Terhadap Generasi Masa Depan. 
+    menu_items={"About": """##### Impact of Hotspots on October 2023 of El Nino Season Toward Future Generations. 
             Author: Jeffri Argon
 Email: jeffriargon@gmail.com
             """}
@@ -61,7 +61,7 @@ rr_now = bmkg['rr_avg'][bmkg['date'] == dt_now]
 rr_avg_prev = rr_prev.mean(axis=0)
 rr_avg_now = rr_now.mean(axis=0)
 
-st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Influence of Hotspots on October 2023 of El Nino Season"
+st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Impact of Hotspots on October 2023 of El Nino Season"
              " <br> Toward Future Generations<br><br></h1>", unsafe_allow_html=True)
 
 # perbedaan hs tahun sebelumnya dan sekarang
