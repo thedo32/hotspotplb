@@ -83,11 +83,11 @@ with st.container(border=True):
                   delta_color="off")
 
     with col_temp:
-        st.metric("Avg Temperature South Sumatra Province", value=fu.format_big_number(t_avg_now) + " C", delta=f'{t_diff:.2f}%',
+        st.metric("Avg Temperature South Sumatra Prov.", value=fu.format_big_number(t_avg_now) + " C", delta=f'{t_diff:.2f}%',
                   delta_color="off")
 
     with  col_presip:
-        st.metric("Avg Precipitation South Sumatra Province", value=fu.format_big_number(rr_avg_now) + " mm", delta=f'{rr_diff:.2f}%',
+        st.metric("Avg Precipitation South Sumatra Prov.", value=fu.format_big_number(rr_avg_now) + " mm", delta=f'{rr_diff:.2f}%',
                   delta_color="off")
 
 left_cl, main_cl = st.columns([1, 8])
@@ -125,11 +125,11 @@ with (main_cl):
                                                                                                            "The author focuses on conducting analysis in Palembang City, not only because it is the most populous area in South Sumatra Province, but also because of data such as temperature and precipitation,"
                                                                                                            "And wind speed is obtained from BMKG, whose stations and measurement accuracy are located around the city of Palembang."
                                                                                                            "Apart from that, the focus of the analysis is also on October, which is the peak of the 2023 El Nino season.<br>"
-                                                                                                           "**El Nino Peak:**<br> " ""
+                                                                                                           "**El Nino Peak Month:**<br> " ""
                                                                                                            "Under normal conditions the rainy season starts in October,"
-                                                                                                           "However, according to BMKG data, :blue [High temperature, very low precipitation] will occur in October 2023. Also based on historical Sipongi Data Matrix where"
+                                                                                                           "However, according to BMKG data, :blue[High temperature, very low precipitation] will occur in October 2023. Also based on historical Sipongi Data Matrix where"
                                                                                                            ":blue[land forest fires often peak in October in the year El Nino occurs].<br> "
-                                                                                                           "This condition results in exposure to smoke haze pollution which results in :blue [high health risks to the community,"
+                                                                                                           "This condition results in exposure to smoke haze pollution which results in :blue[high risks to the community,"
                                                                                                            "especially in vulnerable groups such as children and pregnant women] which can threaten :blue[Future Generation]",
                     unsafe_allow_html=True)
 
