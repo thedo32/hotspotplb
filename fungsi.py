@@ -59,8 +59,8 @@ def wilayah_admin(wilayah):
         df1 = pd.read_csv('maps/palembang75.csv')
         bubbletext = [{"text": "6194", "lat": -3.47, "lon": 105.96}]
     elif wilayah == "Sumsel":
-        df1 = pd.read_csv('maps/palembang75.csv')
-        bubbletext = [{"text": "6194", "lat": -3.47, "lon": 105.96}]
+        df1 = pd.read_csv('maps/sumsel.csv')
+        bubbletext = [{"text": "6194", "lat": -3.47, "lon": 106.139}]
     else:
         df2 = pd.read_csv('maps/sumsel.csv')
         bubbletext = [{"text": "15848", "lat": -3.47, "lon": 106.139}]

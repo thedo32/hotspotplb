@@ -95,7 +95,7 @@ with left_cl:
     containup = st.container()
     containup.float()
     containup.markdown("[↗️⬆️↖️](#pendahuluan)", unsafe_allow_html=True)
-    st.page_link("Polluteng.py", label="English", icon="🏠")
+    st.page_link("Pollute.py", label="Indonesia", icon="🏠")
     with st.container(border=True):
         st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
