@@ -92,10 +92,10 @@ with st.container(border=True):
 
 left_cl, main_cl = st.columns([1, 8])
 with left_cl:
+    st.page_link("https://hotspotplb.streamlit.app/", label="Indonesia", icon="🏠")
     containup = st.container()
     containup.float()
     containup.markdown("[↗️⬆️↖️](#introduction)", unsafe_allow_html=True)
-    st.page_link("https://hotspotplb.streamlit.app/", label="Indonesia", icon="🏠")
     with st.container(border=True):
         st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
