@@ -127,9 +127,9 @@ with (main_cl):
                                                                                                            "Apart from that, the focus of the analysis is also on October, which is the peak of the 2023 El Nino season.<br>"
                                                                                                            "**El Nino Peak Month:**<br> " ""
                                                                                                            "Under normal conditions the rainy season starts in October,"
-                                                                                                           "However, according to BMKG data, :blue[High temperature, very low precipitation] will occur in October 2023. Also based on historical Sipongi Data Matrix where"
-                                                                                                           ":blue[land forest fires often peak in October in the year El Nino occurs].<br> "
-                                                                                                           "This condition results in exposure to smoke haze pollution which results in :blue[high risks to the community,"
+                                                                                                           "However, according to BMKG data, :blue[High temperature, very low precipitation] will occur in October 2023. Also based on historical Sipongi Data Matrix where "
+                                                                                                           ":blue[forest fires often peak in October in the year El Nino occurs].<br> "
+                                                                                                           "This condition results in exposure to haze pollution which results in :blue[high risks to the community,"
                                                                                                            "especially in vulnerable groups such as children and pregnant women] which can threaten :blue[Future Generation]",
                     unsafe_allow_html=True)
 
