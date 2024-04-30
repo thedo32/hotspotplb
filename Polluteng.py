@@ -117,17 +117,18 @@ with (main_cl):
     with st.container(border=True):
         st.markdown("**Background:**<br>"
                      "According to data from [SIPONGI KLHK](%s)" % urlsipongi + " and [FIRMS NASA](%s)" % urlfirms + " "
-                                                                                                           "in October 2023, in the :blue region [South Sumatra Province] which has a population of 8.6 million people (BPS 2022),"
+                                                                                                           "October 2023, in the :blue region [South Sumatra Province] which has a population of 8.6 million people (BPS 2022),"
                                                                                                            "and has a developing metropolitan area, namely Paturaya Agung, which has a population of 2.6 million people (BPS 2020),"
                                                                                                            "especially :blue [Palembang City with a population of around 1.7 million people] (BPS 2022),"
                                                                                                            "There are :blue [most] hotspots of Land Forest Fire Disaster incidents compared to other provinces in Indonesia, which are exacerbated by the El Nino phenomenon. <br>"
                                                                                                            "**Analysis Focus:**<br>"
-                                                                                                           "The author focuses on conducting analysis in Palembang City, not only because it is the most populous area in South Sumatra Province, but also because of data such as temperature and precipitation,"
-                                                                                                           "And wind speed is obtained from BMKG, whose stations and measurement accuracy are located around the city of Palembang."
+                                                                                                           "The author focuses on conducting analysis in Palembang City, not only because it is the most populous area in South Sumatra Province, "
+                                                                                                          "but also because of data such as temperature and precipitation,"
+                                                                                                           " and wind speed were obtained from BMKG, whose stations and measurement accuracy are located around Palembang."
                                                                                                            "Apart from that, the focus of the analysis is also on October, which is the peak of the 2023 El Nino season.<br>"
                                                                                                            "**El Nino Peak Month:**<br> " ""
                                                                                                            "Under normal conditions the rainy season starts in October,"
-                                                                                                           "However, according to BMKG data, :blue[High temperature, very low precipitation] will occur in October 2023. Also based on historical Sipongi Data Matrix where "
+                                                                                                           "however, according to BMKG data, :blue[high temperature, very low precipitation] occur in October 2023. Also based on historical Sipongi Data Matrix where "
                                                                                                            ":blue[forest fires often peak in October in the year El Nino occurs].<br> "
                                                                                                            "This condition results in exposure to haze pollution which results in :blue[high risks to the community,"
                                                                                                            "especially in vulnerable groups such as children and pregnant women] which can threaten :blue[Future Generation]",
@@ -151,7 +152,7 @@ with (main_cl):
 
         # tab untuk peta 3 wilayah administrasi
         tab1a, tab1b, tab1c, tab1d, tab1e = st.tabs(
-            ['Kota Palembang', 'Provinsi Sumatera Selatan', 'Indonesia', 'Indonesia Bubble', 'Indonesia Folium Popup'])
+            ['Palembang City', 'South Sumatera Province', 'Indonesia', 'Indonesia Bubble', 'Indonesia Folium Popup'])
 
         with tab1a:
             sl1, sl2 = st.columns([1, 4])
@@ -204,25 +205,25 @@ with (main_cl):
             ))
 
         # load dataframe
-        df = pd.read_csv('data/max_hs_pl_palembang_distinct.csv')
-        df0 = pd.read_csv('data/max_distinct_pm25_plb_oct_2023.csv')
-        df1 = pd.read_csv('data/max_distinct_pm25_plb_oct_2022.csv')
-        df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023.csv')
-        df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023.csv')
+        df = pd.read_csv('data/max_hs_pl_palembang_distinct_en.csv')
+        df0 = pd.read_csv('data/max_distinct_pm25_plb_oct_2023_en.csv')
+        df1 = pd.read_csv('data/max_distinct_pm25_plb_oct_2022_en.csv')
+        df2 = pd.read_csv('data/max_distinct_pm25_plb_aug_2023_en.csv')
+        df3 = pd.read_csv('data/max_distinct_pm25_plb_dec_2023_en.csv')
 
         with st.expander("Map Analysis"):
             st.markdown("Can be seen: blue [around Palembang City there are many hotspots],"
-                         "Also, if we look at the South Sumatra Province region, there are more hotspots in the area."
+                         "if we look at the South Sumatra Province region, there are more hotspots in the area."
                          ":blue[southeast part of the province and not far from the provincial capital]."
-                         "If overall on the map of Indonesia, the hotspot brightness is almost the same in several regions,"
+                         "Overall on Indonesia map, the hotspot brightness seems almost the same in several regions,"
                          "Then if you look at the Indonesia Bubble map"
-                         "In South Sumatra there are 15,848 hotspots, :blue [the most compared to other provinces],"
-                         "and below that, Central Kalimantan has 13,393 hotspots, out of a total of 78,759 hotspots in Indonesia.<br><br>",
+                         "in South Sumatra there are 15,848 hotspots, :blue [the most hotspots compared to other provinces],"
+                         "follow by Central Kalimantan province which has 13,393 hotspots, out of 78,759 total hotspots in Indonesia.<br><br>",
                         unsafe_allow_html=True)
 
         st.subheader("Pollution Standard Index Chart October 2023")
 
-        tabBar, tabArc = st.tabs(['Pollution Standard Status of PM 2.5', 'Persentase'])
+        tabBar, tabArc = st.tabs(['Pollution Standard Status of PM 2.5', 'Percentage'])
         with tabBar:
             colLBar, colBar, colRBar = st.columns([1, 20, 1])
             with colBar:
@@ -262,7 +263,7 @@ with (main_cl):
                 #         )
                 #
                 # st.altair_chart(bars + text, use_container_width=True)
-                st.image("img/kategori_ispu.png", use_column_width=True)
+                st.image("img/poll_index.png", use_column_width=True)
 
         with tabArc:
             colLArc, colArc1, colArc2, colRArc = st.columns([1, 9, 9, 1])
@@ -320,7 +321,7 @@ with (main_cl):
                       "most influential polluter"
                       " for health - [DitppuLHK](%s)" % url)
             st.markdown(
-                "From the diagram above we can see that in Palembang City in October 2023, the majority of air pollution status is at the: blue [Unhealthy] level,"
+                "From the diagram above we can see that in Palembang, October 2023, the majority of air pollution status is at the: blue [Unhealthy] level,"
                  "There were even 5 days in that month where the pollution status was at level: blue [Very Unhealthy],"
                  "which can endanger human health conditions, greatly risking the future of children."
                  "By comparing October 2023, which according to the Sipongi KLHK Data Matrix above is the peak period for the occurrence of Land Forest Fires (Karhutla) in 2023, with the previous year in October 2022, with the time when Forest and Land Fires in 2023 had not yet reached their peak in August, with The 2023 forest and land fires will decline in December,"
@@ -355,23 +356,23 @@ with (main_cl):
 
         option = st.selectbox(
             "Select the data you want to correlate with the Daily ISPU PM 2.5",
-            ("Correlation Heatmap Data", "Number of Hs and ISPU PM 2.5", "Distance and ISPU PM 2.5",
-             "Precipitation and ISPU PM 2.5", "Wind Speed and ISPU PM 2.5",
-             "Temperature and ISPU PM 2.5")
+            ("Correlation Heatmap Data", "Hs Amount and Pollution Index of PM 2.5", "Hs Distance and Pollution Index of PM 2.5",
+             "Precipitation and Pollution Index of PM 2.5", "Wind Speed and Pollution Index of PM 2.5",
+             "Temperature and Pollution Index of PM 2.5")
         )
 
         colL1, colM1, colR1 = st.columns([2, 10, 2])
 
         with colM1:
-            if option == "Correlation Data Heatmap":
+            if option == "Correlation Heatmap Data":
                 # heat = sns.heatmap(dfcorr.corr(),  cmap="Blues", annot=True)
                 # st.write(heat.get_figure())
-                st.image('img/korrheatmap.png', use_column_width=True)
+                st.image('img/corrheatmap.png', use_column_width=True)
 
-            if option == "Hs amount and Pollution index of PM 2.5":
+            if option == "Hs Amount and Pollution Index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
-                    x=alt.X("Jumlah_Hs:Q", title="Jumlah Hotspot"),
-                    y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
+                    x=alt.X("Jumlah_Hs:Q", title="Hotspot Amount"),
+                    y=alt.Y("ISPU:Q", title="Pollution Index of PM 2.5"),
                 ).interactive().properties(height=425)
 
                 st.altair_chart(scatter +
@@ -379,10 +380,10 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Distance and Pollution index of PM 2.5":
+            if option == "Hs Distance and Pollution Index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
-                    x=alt.X("Jarak:Q", title="Jarak Rata2(km)"),
-                    y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
+                    x=alt.X("Jarak:Q", title="Average Distance (km)"),
+                    y=alt.Y("ISPU:Q", title="Pollution Index of PM 2.5"),
                 ).interactive().properties(height=425)
 
                 st.altair_chart(scatter +
@@ -390,10 +391,10 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Precipitation and Pollution index of PM 2.5":
+            if option == "Precipitation and Pollution Index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
-                    x=alt.X("Presipitasi:Q", title="Presipitasi (mm)"),
-                    y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
+                    x=alt.X("Presipitasi:Q", title="Precipitation (mm)"),
+                    y=alt.Y("ISPU:Q", title="Pollution Index of PM 2.5"),
 
                 ).interactive().properties(height=425)
 
@@ -402,10 +403,10 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Win Speed and Pollution index of PM 2.5":
+            if option == "Win Speed and Pollution Index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
-                    x=alt.X("Kec_Angin:Q", title="Kecepatan Angin (m/detik)"),
-                    y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
+                    x=alt.X("Kec_Angin:Q", title="Wind Speed (m/s)"),
+                    y=alt.Y("ISPU:Q", title="Pollution Index of PM 2.5"),
                 ).interactive().properties(height=425)
 
                 st.altair_chart(scatter +
@@ -413,10 +414,10 @@ with (main_cl):
                                 mark_line(size=3, color="red", opacity=0.3),
                                 theme='streamlit', use_container_width=True)
 
-            if option == "Temperature and Pollution index of PM 2.5":
+            if option == "Temperature and Pollution Index of PM 2.5":
                 scatter = alt.Chart(dfcorr).mark_point(size=50).encode(
-                    x=alt.X("Temper:Q", title="Temperatur (Celcius)"),
-                    y=alt.Y("ISPU:Q", title="ISPU PM 2.5"),
+                    x=alt.X("Temper:Q", title="Temperature (Celcius)"),
+                    y=alt.Y("ISPU:Q", title="Pollution Index of PM 2.5"),
                 ).interactive().properties(height=425)
 
                 st.altair_chart(scatter +
