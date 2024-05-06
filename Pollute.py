@@ -61,8 +61,11 @@ rr_now = bmkg['rr_avg'][bmkg['date'] == dt_now]
 rr_avg_prev = rr_prev.mean(axis=0)
 rr_avg_now = rr_now.mean(axis=0)
 
-st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Dampak Hotspot Di Musim El Nino Oktober 2023"
-            " <br> Terhadap Generasi Masa Depan<br><br></h1>", unsafe_allow_html=True)
+# st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Dampak Hotspot Di Musim El Nino Oktober 2023"
+#             " <br> Terhadap Generasi Masa Depan<br><br></h1>", unsafe_allow_html=True)
+
+fu.stylemd("<h1 style='text-align: center; color: #0B60B0;'> Dampak Hotspot Di Musim El Nino Oktober 2023"
+                    " <br> Terhadap Generasi Masa Depan<br><br></h1>")
 
 # perbedaan hs tahun sebelumnya dan sekarang
 idn_diff = 100.0 * ((firmhs - firmhs_prev) / firmhs_prev)
@@ -467,12 +470,11 @@ with st.container(border=True):
             "Sehingga paparan pencemaran udara pada anak-anak jauh menurun, sehingga meningkatkan kesehatan dan kecerdasan dari :blue[Generasi Masa Depan Indonesia.] ",
             unsafe_allow_html=True)
 
-with st.container(border=True):
-    st.caption("Sumber Data: [KemenLHK](%s)" % urllhk + ", "
+fu.stylecapt("Sumber Data: [KemenLHK](%s)" % urllhk + ", "
                                                         "[FIRMS NASA](%s)" % urlfirms + ", "
                                                                                         "[Open Weather Map](%s)" % urlopenwea + ", "
-                                                                                                                                "[BMKG](%s)" % urlbmkg,
-               unsafe_allow_html=True)
+                                                                                                                                "[BMKG](%s)" % urlbmkg
+                )
 
 with main_cl:
     # tab lain utk peta diloading paling akhir

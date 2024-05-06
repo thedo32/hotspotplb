@@ -3,6 +3,7 @@ import geopy.distance
 import csv
 import geojson
 import streamlit as st
+from streamlit_extras.stylable_container import stylable_container
 
 @st.cache_resource
 
@@ -64,3 +65,51 @@ def wilayah_admin(wilayah):
     else:
         df2 = pd.read_csv('maps/sumsel.csv')
         bubbletext = [{"text": "15848", "lat": -3.47, "lon": 106.139}]
+
+
+def stylebutton(textcontain):
+    with stylable_container(
+        key="green_button",
+        css_styles="""
+            button {
+                background-color: green;
+                color: white;
+                border-radius: 20px;
+            }
+            """,
+    ):
+        st.button(textcontain, unsafe_allow_html=True)
+
+def stylecapt(textcontain):
+    with stylable_container(
+            key="container_with_border",
+            css_styles="""
+              {
+                  border: 2px solid rgba(49, 51, 63, 0.2);
+                  border-radius: 0.5rem;
+                  background-color: rgba(100, 76, 76, 0.2);
+                  padding: calc(1em - 1px)
+              }
+              """,
+    ):
+        st.caption(textcontain, unsafe_allow_html=True)
+
+def stylemd(textcontain):
+    with stylable_container(
+            key="container_with_border",
+            css_styles="""
+              {
+                  border: 2px solid rgba(49, 51, 63, 0.2);
+                  border-radius: 0.5rem;
+                  background-color: rgba(100, 76, 76, 0.2);
+                  padding: calc(1em - 1px)
+              }
+              """,
+    ):
+        st.markdown(textcontain, unsafe_allow_html=True)
+
+
+
+
+
+

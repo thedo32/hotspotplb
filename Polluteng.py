@@ -9,6 +9,7 @@ from streamlit_float import *
 from streamlit_folium import st_folium
 from folium.plugins import LocateControl
 
+
 import fungsi as fu
 
 st.set_page_config(
@@ -61,8 +62,11 @@ rr_now = bmkg['rr_avg'][bmkg['date'] == dt_now]
 rr_avg_prev = rr_prev.mean(axis=0)
 rr_avg_now = rr_now.mean(axis=0)
 
-st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Impact of Hotspots on October 2023 of El Nino Season"
-             " <br> Toward Future Generations<br><br></h1>", unsafe_allow_html=True)
+# st.markdown("<h1 style='text-align: center; color: #0B60B0;'> Impact of Hotspots on October 2023 of El Nino Season"
+#              " <br> Toward Future Generations<br><br></h1>", unsafe_allow_html=True)
+fu.stylemd("<h1 style='text-align: center; color: #0B60B0;'> Impact of Hotspots on October 2023 of El Nino Season"
+            " <br> Toward Future Generations<br><br></h1>")
+
 
 # perbedaan hs tahun sebelumnya dan sekarang
 idn_diff = 100.0 * ((firmhs - firmhs_prev) / firmhs_prev)
@@ -70,7 +74,9 @@ hs_diff = 100.0 * ((sumselhs - sumselhs_prev) / sumselhs_prev)
 t_diff = 100.0 * ((t_avg_now - t_avg_prev) / t_avg_prev)
 rr_diff = 100.0 * ((rr_avg_now - rr_avg_prev) / t_avg_prev)
 
+
 st.subheader("Introduction")
+
 with st.container(border=True):
     col_idn, col_hotspot, col_temp, col_presip = st.columns(4)  # add four columns
 
@@ -99,9 +105,9 @@ with left_cl:
     with st.container(border=True):
         st.markdown("<h5 style='text-align: left; color: #0B60B0;'>Section:</h5>", unsafe_allow_html=True)
         st.markdown("""
-        - [Peta](#forest-fire-hotspot-propagation-map-october-2023)
+        - [Map](#forest-fire-hotspot-propagation-map-october-2023)
         - [Diagram](#pollution-standard-index-chart-october-2023)
-        - [Korrelasi](#correlation)
+        - [Correlation](#correlation)
         - [Insight](#insight)
         """, unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
@@ -468,12 +474,12 @@ with st.container(border=True):
              "So that children's exposure to air pollution is greatly reduced, thereby improving the health and intelligence of :blue [Indonesia's Future Generation.] ",
             unsafe_allow_html=True)
 
-with st.container(border=True):
-    st.caption("Data Source: [KemenLHK](%s)" % urllhk + ", "
+fu.stylecapt("Data Source: [KemenLHK](%s)" % urllhk + ", "
                                                         "[FIRMS NASA](%s)" % urlfirms + ", "
                                                                                         "[Open Weather Map](%s)" % urlopenwea + ", "
-                                                                                                                                "[BMKG](%s)" % urlbmkg,
-               unsafe_allow_html=True)
+                                                                                                                                "[BMKG](%s)" % urlbmkg
+                )
+
 
 with main_cl:
     # tab lain utk peta diloading paling akhir
