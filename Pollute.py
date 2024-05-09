@@ -8,7 +8,6 @@ from folium.plugins import MarkerCluster
 from streamlit_float import *
 from streamlit_folium import st_folium
 from folium.plugins import LocateControl
-
 import fungsi as fu
 
 st.set_page_config(
