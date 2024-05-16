@@ -79,19 +79,19 @@ with st.container(border=True):
     col_idn, col_hotspot, col_temp, col_presip = st.columns(4)  # add four columns
 
     with col_idn:
-        st.metric("Hotspot Indonesia", value=fu.format_big_number(firmhs), delta=f'{fu.format_big_number(idn_diff)}%',
+        st.metric("Hotspots Indonesia", value=fu.format_big_number(firmhs), delta=f'{fu.format_big_number(idn_diff)}%',
                   delta_color="off")
 
     with col_hotspot:
-        st.metric("Hotspot South Sumatra Province", value=fu.format_big_number(sumselhs), delta=f'{fu.format_big_number(hs_diff)}%',
+        st.metric("Hotspots South Sumatra Province", value=fu.format_big_number(sumselhs), delta=f'{fu.format_big_number(hs_diff)}%',
                   delta_color="off")
 
     with col_temp:
-        st.metric("Avg Temperature South Sumatra Prov.", value=fu.format_big_number(t_avg_now) + " C", delta=f'{t_diff:.2f}%',
+        st.metric("Avg Temperature South Sumatra", value=fu.format_big_number(t_avg_now) + " C", delta=f'{t_diff:.2f}%',
                   delta_color="off")
 
     with  col_presip:
-        st.metric("Avg Precipitation South Sumatra Prov.", value=fu.format_big_number(rr_avg_now) + " mm", delta=f'{rr_diff:.2f}%',
+        st.metric("Avg Precipitation South Sumatra", value=fu.format_big_number(rr_avg_now) + " mm", delta=f'{rr_diff:.2f}%',
                   delta_color="off")
 
 left_cl, main_cl = st.columns([1, 8])
