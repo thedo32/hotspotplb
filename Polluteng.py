@@ -96,7 +96,7 @@ with st.container(border=True):
 
 left_cl, main_cl = st.columns([1, 8])
 with left_cl:
-    st.page_link("https://hotspotplb.streamlit.app/", label="Indonesia", icon="🏠")
+    st.page_link("https://hotspotplb.streamlit.app/", label="Indonesian", icon="🏠")
     containup = st.container()
     containup.float()
     containup.markdown("[↗️⬆️↖️](#introduction)", unsafe_allow_html=True)
