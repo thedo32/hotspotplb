@@ -105,7 +105,7 @@ with left_cl:
         st.markdown("""
         - [Map](#forest-fire-hotspot-propagation-map-october-2023)
         - [Diagram](#pollution-standard-index-chart-october-2023)
-        - [Correlation](#correlation)
+        - [Corr.](#correlation)
         - [Insight](#insight)
         """, unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
